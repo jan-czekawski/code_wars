@@ -11,9 +11,9 @@
 # spinWords( "This is another test" )=> returns "This is rehtona test"
 
 # MY SOLUTION
-# def spinWords(string)
-#   string.split.map { |word| word.length >= 5 ? word.reverse : word }.join(" ")
-# end
+def spinWords(string)
+  string.split.map { |word| word.length >= 5 ? word.reverse : word }.join(" ")
+end
 
 # BETTER SOLUTIONS
 def spinWords(string)
@@ -21,9 +21,9 @@ def spinWords(string)
   # string.gsub(/\w{5,}/) { |x| x.reverse }
 end
 
-# def spinWords(string)
-#   string.split.map { |word| word.length >= 5 && word.reverse || word }.join(" ")
-# end
+def spinWords(string)
+  string.split.map { |word| word.length >= 5 && word.reverse || word }.join(" ")
+end
 
 puts spinWords("Hey")
 puts spinWords("Hey fellow warriors"), "Hey wollef sroirraw"
