@@ -36,8 +36,18 @@ end
 # BEST SOLUTION
 def dig_pow(n, p)
   # total = n.to_s.chars.map.each_with_index { |digit, idx| digit.to_i ** (p + idx) }.inject(:+)
-  total = n.to_s.chars.map.with_index { |digit, idx| digit.to_i ** (p + idx) }.inject(:+)
+  total = n.to_s.chars.map.with_index(p) { |digit, pow| digit.to_i ** pow }.inject(:+)
   total % n == 0 ? total / n : -1
+end
+
+def dig_pow(n, p)
+  # c = n.to_s.split('').each.with_index(p).inject(0){ |s, (v, power)|
+  c = n.to_s.split('').each.with_index.inject(0){ |s, (v, i)|
+  # c = n.to_s.split('').each_with_index.inject(0){ |s, (v, i)|
+    # s + v.to_i ** power
+    s + v.to_i ** (p + i)
+  }
+  c % n != 0 ? -1 : c / n
 end
 
 p dig_pow(89, 1) # 1)
