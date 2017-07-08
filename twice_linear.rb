@@ -15,7 +15,7 @@
 # #Note: Focus attention on efficiency
 
 
-MY SOLUTION
+# MY SOLUTION
 def multiply(arr, beg, result)
   while arr[result*5].nil?
     arr.push(2 * arr[beg] + 1).push(3 * arr[beg] + 1).uniq!
@@ -122,6 +122,64 @@ def dbl_linear(n)
     break if index == n*3/5
   end
   u[n]  
+end
+
+def dbl_linear(n)
+  h = 1; cnt = 0; q2, q3 = [], []
+  while true do
+      if (cnt >= n) then
+          return h
+      end
+      q2.push(2 * h + 1)
+      q3.push(3 * h + 1)
+      h = [q2[0], q3[0]].min
+      if h == q2[0] then h = q2.shift() end
+      if h == q3[0] then h = q3.shift() end
+      cnt += 1
+  end
+end
+
+def dbl_linear(n)
+  u=[1]
+  (0..n*5).each { |i| u << u[i]*2 + 1 << u[i]*3 + 1}
+  u.sort.uniq[n]
+end
+
+def dbl_linear(n)
+  # your code
+  u_sequence = [1, 3, 4]
+  u_sequence_hash = {1=>true, 3=>true, 4=>true}
+  
+  i = 5
+  while u_sequence.length <= n do
+    i1 = i - 1
+    if (i1%2==0 && u_sequence_hash[i1/2]) || (i1%3==0 && u_sequence_hash[i1/3])
+      u_sequence << i
+      u_sequence_hash[i] = true
+    end
+    i += 1
+  end
+  u_sequence[n]
+end
+
+
+def dbl_linear(n)
+  u = [1]
+  twice = []
+  thrice = []
+  while u.count <= n
+    twice << u[-1] * 2 + 1
+    thrice << u[-1] * 3 + 1
+    if twice[0] < thrice[0]
+      u << twice.shift
+    elsif twice[0] > thrice[0]
+      u << thrice.shift
+    else
+      u << twice.shift
+      thrice.shift
+    end
+  end
+  u[-1]
 end
 
 
