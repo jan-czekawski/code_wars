@@ -92,6 +92,15 @@ def pick_peaks(array)
   { "pos" => pos, "peaks" => pos.map { |p| array[p] } }
 end
 
+def pick_peaks(arr)
+  pos, peaks = (1..arr.size-2).inject([[], []]) do |(p, v), i|
+    next [p, v] unless arr[i] > arr[i-1]
+    next_diff = (i+1..arr.size-1).find{|j| arr[i] != arr[j]}
+    next [p, v] unless next_diff && arr[i] > arr[next_diff]
+    [p << i, v << arr[i]]
+  end
+  {'pos'=>pos, 'peaks'=>peaks}
+end
 
 p pick_peaks([1,2,3,6,4,1,2,3,2,1]) #, {"pos"=>[3,7], "peaks"=>[6,3]})
 
