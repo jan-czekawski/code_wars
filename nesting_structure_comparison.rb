@@ -51,13 +51,22 @@ end
 
 
 class Array
-
   def same_structure_as(a)
     return false if self.class!=a.class || size!=a.size 
     a.each_index { |i| return false if self[i].class==Array && !self[i].same_structure_as(a[i]) }
     true
   end
-  
+end
+
+class Array
+  def same_structure_as(other)
+    return false unless other.is_a?(Array)
+    return false unless other.length == self.length
+
+    self.zip(other).all? do |a, b|
+      a.is_a?(Array) ? a.same_structure_as(b) : !b.is_a?(Array)
+    end
+  end
 end
 
 
