@@ -50,7 +50,20 @@ class Array
 end
 
 
+class Array
+
+  def same_structure_as(a)
+    return false if self.class!=a.class || size!=a.size 
+    a.each_index { |i| return false if self[i].class==Array && !self[i].same_structure_as(a[i]) }
+    true
+  end
+  
+end
+
+
+
 p [1,[1,1]].same_structure_as([2,[2,2]]) #"[1,[1,1]] same as [2,[2,2]]")
 p ![1,[1,1]].same_structure_as([[2,2],2])# "[1,[1,1]] not same as [[2,2],2]")
 p [1,[1,1]].same_structure_as([[2,2],2])# "[1,[1,1]] not same as [[2,2],2]")
 p [1,'[',']'].same_structure_as(['[',']',1])
+p [1].same_structure_as([[[[[1]]]]])
