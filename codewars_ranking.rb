@@ -58,21 +58,20 @@
 # ranked activities are completed at.
 
 class User
-  
+  @@ranks = [-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8]
   attr_accessor :rank, :progress
   
   def initialize
-    @rank = -8
+    @rank_idx = 0
+    @rank = @@ranks[@rank_idx]
     @progress = 0
   end
-  
-  @@ranks = [-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8]
   
   def inc_progress(task_rank)
     raise "Incorrect rank" unless @@ranks.include?(task_rank)
     return if @rank == 8
     
-    diff = task_rank - @rank
+    diff = @@ranks.index(task_rank) - @@ranks.index(@rank)
     if diff > 0
       @progress += 10 * diff * diff
     elsif diff == 0
@@ -85,14 +84,44 @@ class User
       rank_diff = @progress / 100
       @progress -= rank_diff * 100
       @rank += rank_diff
+      
       rank_diff.times do |x|
-        @rank += 1
-        @rank += 1 if @rank == 0        
+        @rank_idx += 1
+        @rank = @@ranks[@rank_idx]
       end
 
-      @rank = 8 if @rank >= 8
-      @progress = 0 if @rank >= 8
+      @rank = 8 if @rank.nil?
+      @progress = 0 if @rank == 8
     end
+  end
+end
+
+
+# BEST SOLUTION
+class User
+  RANKS = [-8, -7, -6, -5, -4, -3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8]
+
+  def initialize
+    @points = 0
+  end
+  
+  def rank
+    RANKS[@points / 100] || 8
+  end
+  
+  def progress
+    rank == 8 ? 0 : @points % 100
+  end
+  
+  def inc_progress(task_rank)
+    raise "Invalid rank" unless idx = RANKS.index(task_rank)
+    
+    @points += case delta = idx - @points / 100
+               when -1    then 1
+               when  0    then 3
+               when 1..15 then 10 * delta * delta
+               else            0
+               end
   end
 end
 
