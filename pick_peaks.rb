@@ -25,7 +25,7 @@
 # Have fun!
 
 
-
+# MY SOLUTION
 def pick_peaks(arr)
   result = { "pos" => [], "peaks" => []}
   
@@ -76,7 +76,21 @@ def pick_peaks(arr)
   result
 end
 
+# BEST SOLUTIONS
+def pick_peaks(array)
+  pos = []
+  peak = nil
+  (1...array.size).each do |index|
+    if array[index] > array[index-1]
+      peak = index
+    elsif array[index] < array[index-1] && peak
+      pos << peak
+      peak = nil
+    end
+  end
 
+  { "pos" => pos, "peaks" => pos.map { |p| array[p] } }
+end
 
 
 p pick_peaks([1,2,3,6,4,1,2,3,2,1]) #, {"pos"=>[3,7], "peaks"=>[6,3]})
