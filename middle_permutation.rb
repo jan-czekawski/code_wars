@@ -18,12 +18,30 @@
 
 # middle permutation.
 
-require "benchmark"
-
 def middle_permutation(string)
   combos = string.chars.sort.permutation(string.size).map(&:join)
   combos.size.even? ? combos[combos.size / 2 - 1] : combos[combos.size / 2] 
 end
+
+def sort_arr(arr)
+  return arr if arr.size <= 1
+  middle = arr.pop
+  less = arr.select { |x| x < middle }
+  more = arr.select { |x| x >= middle }
+  sort_arr(less) + [middle] + sort_arr(more)
+end
+
+def middle_permutation(string)
+  new_sort = []
+  size = string.size
+  sort_combos = string.chars
+  sort_combos = sort_arr(sort_combos)
+  all_combos = sort_combos.permutation(string.size).map(&:join)
+  all_combos.size.even? ? all_combos[all_combos.size / 2 - 1] : all_combos[all_combos.size / 2]
+end
+
+
+
 
 # def middle_permutation(string)
 #   # combos = string.chars.sort.permutation(string.size).map(&:join)
