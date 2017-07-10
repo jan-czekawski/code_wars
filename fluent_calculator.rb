@@ -58,6 +58,63 @@ class Calc
 end
 
 
+class Calc
+  def initialize
+    @val = 0
+    @op = nil
+  end
+  
+  ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'].each_with_index do |d, i|
+      define_method(d) do
+        return @val.send(@op, i) if @op
+        @val = i
+        self
+      end
+    end
+    
+    {'plus' => :+, 'minus' => :-, 'times' => :*, 'divided_by' => :/}.each do |o, sym|
+      define_method(o) do
+        @op = sym
+        self
+      end
+    end
+end
+
+
+
+
+CLEVER SOLUTION
+
+# Chainable:
+# Calc.new.one.plus.one.plus.one == 3
+
+class Fixnum
+  def plus;       Calc.new("+", self) end
+  def minus;      Calc.new("-", self) end
+  def times;      Calc.new("*", self) end
+  def divided_by; Calc.new("/", self) end
+end
+
+class Calc
+  def initialize(*arguments)
+    if arguments.length == 2
+      @operation = arguments[0]
+      @number    = arguments[1]
+    end
+  end
+  
+  %w(zero one two three four five six seven eight nine).each_with_index do |w,i|
+    define_method(w) { perform i }
+  end
+  
+  def perform number
+    if @operation
+      @number.send(@operation, number)
+    else
+      number
+    end
+  end
+end
 
 p Calc.new.four.plus.five #, 9)
 p Calc.new.five.times.four #, 9)
