@@ -32,31 +32,73 @@
 # # Should return ['right', 'down']
 
 
-def solve(minemap, miner, map_exit)
-  req_moves = []
-  return req_moves if miner == map_exit
+# def solve(minemap, miner, map_exit)
+#   req_moves = []
+#   return req_moves if miner == map_exit
   
-  limit = { "x" => minemap[0].size - 1, "y" => minemap.size - 1 }
-  # max_xy = [minemap[0].size - 1, minemap.size - 1]
-  # miner_xy = [miner["x"], miner["y"]]
-  # exit_xy = [map_exit["x"], map_exit["y"]]
-  directions = { up: ["y", -1], right: ["x", 1], down: ["y", 1], left: ["x", -1] }
-  # directions = { left: [miner["x"], -1], right: [miner["x"], 1], up: [miner["y"], -1], down: [miner["xy"], 1] }
+#   limit = { "x" => minemap[0].size - 1, "y" => minemap.size - 1 }
+#   # max_xy = [minemap[0].size - 1, minemap.size - 1]
+#   # miner_xy = [miner["x"], miner["y"]]
+#   # exit_xy = [map_exit["x"], map_exit["y"]]
+#   directions = { up: ["y", -1], right: ["x", 1], down: ["y", 1], left: ["x", -1] }
+#   # directions = { left: [miner["x"], -1], right: [miner["x"], 1], up: [miner["y"], -1], down: [miner["xy"], 1] }
   
-  directions.each do |side, dist|
-    p "miner before #{miner}"
-    p "side=#{side}"
-    if dist[0] == "y"
-      p minemap[miner["x"]][dist[1]]
-    elsif dist[0] == "x"
-      p minemap[dist[1]][miner["y"]]
-    end
-    # if new_loc[dist[0]] >= 0 && new_loc[dist[0]] <= limit[dist[0]] 
-    #   miner[dist[0]] += dist[1]  
-    # end
-    p "miner after #{miner}"
+#   directions.each do |side, dist|
+#     p "miner before #{miner}"
+#     p "side=#{side}"
+#     if dist[0] == "y"
+#       p minemap[miner["x"]][dist[1]]
+#     elsif dist[0] == "x"
+#       p minemap[dist[1]][miner["y"]]
+#     end
+#     # if new_loc[dist[0]] >= 0 && new_loc[dist[0]] <= limit[dist[0]] 
+#     #   miner[dist[0]] += dist[1]  
+#     # end
+#     p "miner after #{miner}"
+#   end
+#   req_moves
+# end
+
+$n = 0
+$m = 0
+$side = ["right", "left", "down", "up"]
+$dir = [[1, 0], [-1, 0], [0, 1], [0, -1]]
+$suc = 0
+
+def inbound(x, y)
+  # p x, y, $n, $m
+  return x >= 0 && x <= $n - 1 && y >= 0 && y <= $m - 1
+end
+
+def dfs(a, start, tun_end, path)
+  if start == tun_end
+    $suc = true
+    return
   end
-  req_moves
+  x = start / $m
+  y = start % $m
+  4.times do |i|
+    x1 = x + $dir[i][0]
+    y1 = y + $dir[i][1]
+    next unless inbound(x1, y1) && a[x1][y1]
+    a[x][y] = false
+    path.push($side[i])
+    dfs(a, x1 * $m + y1, tun_end, path)
+    return if $suc
+    path.pop()
+    a[x][y] = true
+  end
+end
+
+def solve(a, start, mine_end)
+  aa = []
+  a.each { |item| aa << item}
+  $n = aa.size
+  $m = aa[0].size
+  path = []
+  $suc = false
+  dfs(aa, start["x"] * $m + start["y"], mine_end["x"] * $m + mine_end["y"], path)
+  path
 end
 
 # Test.describe('A pretty simple map (2x2)') do
