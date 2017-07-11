@@ -45,10 +45,15 @@ def solve(minemap, miner, map_exit)
   
   directions.each do |side, dist|
     p "miner before #{miner}"
-    new_loc = { dist[0] => miner[dist[0]] + dist[1] }
-    if new_loc[dist[0]] >= 0 && new_loc[dist[0]] <= limit[dist[0]] 
-      miner[dist[0]] += dist[1]  
+    p "side=#{side}"
+    if dist[0] == "y"
+      p minemap[miner["x"]][dist[1]]
+    elsif dist[0] == "x"
+      p minemap[dist[1]][miner["y"]]
     end
+    # if new_loc[dist[0]] >= 0 && new_loc[dist[0]] <= limit[dist[0]] 
+    #   miner[dist[0]] += dist[1]  
+    # end
     p "miner after #{miner}"
   end
   req_moves
