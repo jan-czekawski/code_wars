@@ -80,10 +80,23 @@ class Calc
     end
 end
 
+class Calc
+  ACCEPTED_METHODS = { 
+    one:'1', two:'2',   three:'3',  four:'4', five:'5',
+    six:'6', seven:'7', eight:'8',  nine:'9', ten:'10',
+    plus:'+', minus:'-', times:'*', divided_by:'/'
+  }
+  
+  def method_missing(name)
+    @calc_string = "#{@calc_string} #{ACCEPTED_METHODS[name]}".strip
+    @calc_string.split.size == 3 ? eval(@calc_string) : self
+  end
+end
 
 
 
-CLEVER SOLUTION
+
+# CLEVER SOLUTION
 
 # Chainable:
 # Calc.new.one.plus.one.plus.one == 3
