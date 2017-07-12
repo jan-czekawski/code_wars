@@ -7,8 +7,18 @@
 
 # Examples
 
+# MY SOLUTION
 def remove(s)
   s.gsub(/!/, '').concat("!")
+end
+
+# BEST SOLUTION
+def remove(s)
+  s.delete('!') << '!'
+end
+
+def remove(s)
+  "#{s.gsub('!', '')}!"
 end
 
 p remove("Hi!") # === "Hi!"
