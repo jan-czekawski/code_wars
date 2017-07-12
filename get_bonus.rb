@@ -11,10 +11,32 @@
 # Return the total figure the individual will receive as a string 
 # prefixed with '£' (JS and Java) or '$' (C#, C++, Ruby, Clojure, Elixir, PHP and Python).
 
-
+# MY SOLUTION
 def bonus_time(salary, bonus)
   multip = bonus ? 10 : 1 
   (salary * multip).to_s.prepend("$")
+end
+
+# BEST SOLUTIONS
+def bonus_time(salary, bonus)
+  "$#{bonus ? salary * 10 : salary}"
+end
+
+def bonus_time(salary, bonus)
+  "$#{salary}#{bonus ? 0 : nil}"
+end
+
+
+def bonus_time(salary, bonus)
+  if bonus == true
+  "$#{'%.0f' % (salary.to_i * 10)}"
+  else 
+    "$#{'%.0f' % salary.to_i}"
+  end
+end
+
+def bonus_time(salary, bonus)
+  format("$%d", bonus ? salary * 10 : salary)
 end
 
 p bonus_time(10000, true) #, '$100000')
