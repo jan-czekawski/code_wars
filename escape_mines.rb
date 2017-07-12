@@ -66,7 +66,6 @@ $dir = [[1, 0], [-1, 0], [0, 1], [0, -1]]
 $suc = 0
 
 def inbound(x, y)
-  # p x, y, $n, $m
   return x >= 0 && x <= $n - 1 && y >= 0 && y <= $m - 1
 end
 
@@ -118,22 +117,17 @@ minemap = [[true]]
 p solve(minemap, {'x'=>0,'y'=>0}, {'x'=>0,'y'=>0}) #, [])
 
 # Test.describe('A linear map(1x4)') do
-# minemap = [[true], [true], [true], [true]]
+minemap = [[true], [true], [true], [true]]
   
 # Test.it('Should return a chain of moves to the right') do
-# Test.assert_equals(solve(minemap, {'x'=>0,'y'=>0}, {'x'=>3,'y'=>0}), ['right', 'right', 'right'])
-# end
+p solve(minemap, {'x'=>0,'y'=>0}, {'x'=>3,'y'=>0}) #, ['right', 'right', 'right'])
+
 # Test.it('Should return a chain of moves to the left') do
-# Test.assert_equals(solve(minemap, {'x'=>3,'y'=>0}, {'x'=>0,'y'=>0}), ['left', 'left', 'left'])
-# end
-# end
+p solve(minemap, {'x'=>3,'y'=>0}, {'x'=>0,'y'=>0}) #, ['left', 'left', 'left'])
 
 # Test.describe('Should walk around an obstacle (3x3 map)') do
-# minemap = [[true, true, true],
-#   [false, false, true],
-#   [true, true, true]]
+minemap = [[true, true, true],
+           [false, false, true],
+           [true, true, true]]
   
-# Test.it('Should return the right sequence of moves') do
-# Test.assert_equals(solve(minemap, {'x'=>0,'y'=>0}, {'x'=>2,'y'=>0}), ['down', 'down', 'right', 'right', 'up', 'up'])
-# end
-# end
+p solve(minemap, {'x'=>0,'y'=>0}, {'x'=>2,'y'=>0}) #, ['down', 'down', 'right', 'right', 'up', 'up'])
