@@ -30,12 +30,15 @@
 # Input: 'rr rrr' Output: 8
 # Input: 'rrrrr rrrrr' Output: 16
 
-
+# MY SOLUTION
 def total_bill(s)
   s.count("r") * 2 - s.count("r") / 5 * 2
 end
 
-
+# CLEVER SOLUTION
+def total_bill(s)
+  s.gsub(/\s+/, '').gsub(/r{5}/, "rrrr").length * 2
+end
     
     p total_bill('rr') #, 4)
     p total_bill('rr rrr') #, 8)
