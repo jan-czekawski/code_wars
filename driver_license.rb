@@ -104,6 +104,117 @@ def driver(data)
   str += "9AA"
 end
 
+# BEST SOLUTIONS
+def driver(data)
+  h = {"Jan" => "01","Feb" => "02","Mar" => "03","Apr" => "04",
+"May" => "05","Jun" => "06","Jul" => "07","Aug" => "08",
+"Sep" => "09","Oct" => "10","Nov" => "11","Dec" => "12"}
+
+  mob = h[data[3].split("-")[1][0,3]].split("")
+  mob = (data[4] == "M" ? mob.join : (mob[0].to_i + 5).to_s + mob[1])
+
+  ("%-5s" % data[2][0,5]).gsub(" ","9").upcase + 
+    data[3][-2,1].to_s + mob +
+    data[3].split("-")[0] + data[3][-1,1] +
+    data[0][0,1]  + (data[1][0,1].empty? ?  "9" : data[1][0,1]) + "9" + "AA"
+end
+
+def driver(data)
+  fst = ("%-5s" % data[2].slice(0,5)).tr("\s","9").upcase
+  a = Date.parse(data[3])
+  y1,y2 = a.year.to_s.chars.last(2)
+  m = a.month.to_i + (data[-1] == "F" ? 50 : 0)
+  d = a.day
+  fn, mn = data[0..1].map{|i| i = i.empty? ? "9" : i[0]}
+  "#{fst}#{y1}#{"%02d" % m}#{"%02d" % d}#{y2}#{fn}#{mn}9AA"
+end
+
+require 'date'
+
+def driver(data)
+  surname(data[2]) +
+    birth_decade(data[3]) +
+    birth_month(data[3], data[4]) +
+    birth_day_in_month(data[3]) +
+    birth_year_digit(data[3]) +
+    initials(data[0], data[1]) +
+    arbitrary() +
+    checkdigits()
+end
+
+def surname(name)
+  name[0..4].upcase.ljust(5, '9')
+end
+
+def birth_decade(birthday)
+  birthday[-2]
+end
+
+def birth_month(birthday, gender)
+  month = Date::ABBR_MONTHNAMES
+    .index(birthday[3..5])
+    .to_s
+    .rjust(2, '0')
+  if gender == 'F'
+    return (month[0].to_i + 5).to_s + month[1]
+  end
+  return month
+end
+
+def birth_day_in_month(birthday)
+  birthday[0..1]
+end
+
+def birth_year_digit(birthday)
+  birthday[-1]
+end
+
+def initials(forename, middlename)
+  forename[0] + middlename[0..0].rjust(1, '9')
+end
+
+def arbitrary()
+  '9'
+end
+
+def checkdigits()
+  'AA'
+end
+
+def driver(data)
+
+  require 'date'
+
+  if data[2].length >= 5
+    a = data[2].upcase.slice(0,5)
+  else
+    a = data[2].upcase << '9'*(5 - data[2].length)
+  end
+
+  b = data[3].slice(-2)
+
+  t = data[3]
+  if data[4] == "F"
+    c = DateTime.parse(t).strftime("%m").to_i + 50
+  else
+    c = DateTime.parse(t).strftime("%m")
+  end
+
+  d = data[3].slice(0,2)
+
+  e = data[3].slice(-1)
+
+  if data[1].empty?
+    f = data[0].slice(0) << '9'
+  else
+    f = data[0].slice(0) << data[1].slice(0)
+  end
+
+  # license = "#{a}#{b}#{c}#{d}#{e}#{f}9AA"
+  "#{a}#{b}#{c}#{d}#{e}#{f}9AA"
+
+end
+
 
 data = ["John","James","Smith","01-Jan-2000","M"]
     p driver(data) #, "SMITH001010JJ9AA")
