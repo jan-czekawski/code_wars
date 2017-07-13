@@ -13,10 +13,24 @@
 # ['O','Q','R','S'] -> 'P'
 # (Use the English alphabet with 26 letters!)
 
-
+# MY SOLUTION
 def find_missing_letter(arr)
   arr.each_with_index { |ltr, i| return ltr.next unless ltr.next == arr[i + 1] }
 end
+
+# BEST SOLUTIONS
+def find_missing_letter(arr)
+  ((arr.first..arr.last).to_a - arr).first
+end
+
+def find_missing_letter(arr)
+  find_missing_letters(arr).first
+end
+
+def find_missing_letters(arr)
+  [*arr.first..arr.last] - arr
+end
+
 
 
 p find_missing_letter(["a","b","c","d","f"]) #, "e") #
