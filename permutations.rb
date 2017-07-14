@@ -17,6 +17,19 @@ def permutations(string)
   hash.map { |k, v| k} 
 end
 
+# BEST SOLUTION
+def permutations(string)
+  string.chars.permutation.to_a.map(&:join).uniq
+end
+
+def permutations(string)
+  return [''] if string.empty?
+    (0...string.size).flat_map do |i|
+      char, rest = string[i], string[0...i] + string[i+1..-1]
+    permutations(rest).map { |sub| char + sub }; end
+  .uniq
+end
+
 
 p permutations('ab').sort #, ['ab', 'ba'])
 p permutations('aabb').sort #, ['aabb', 'abab', 'abba', 'baab', 'baba', 'bbaa'])
