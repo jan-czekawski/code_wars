@@ -59,6 +59,7 @@
 # You will need to output the full 16 digit driving license number.
 
 
+
 # MY SOLUTION
 def driver(data, str=["9AA"])
   mths = { "Jan" => "01", "Feb" => "02", "Mar" => "03", "Apr" => "04", "May" => "05",
@@ -88,6 +89,9 @@ def driver(data, str=["9AA"])
   str.join
 end
 
+# ["John","James","Smith","01-Jan-2000","M"]
+#     p driver(data) #, "SMITH001010JJ9AA")
+
 def driver(data)
   str = ""
   mths = { "Jan" => "01", "Feb" => "02", "Mar" => "03", "Apr" => "04", "May" => "05",
@@ -97,11 +101,24 @@ def driver(data)
   
   str += data[2][0..4].upcase
   str += "9" until str.size == 5
-  str += data[3][-2]
-  str += data[4] == "M" ? mths[data[3][3..5]] : (mths[data[3][3..5]].to_i + 50).to_s
-  str += data[3][0..1] + data[3][-1] + data[0][0]
+  
+  # MORE INTERESTING APPROACH
+  /(?<day>\d\d)\-(?<mon>[a-z]{3})[a-z]*\-\d\d(?<dec>\d)(?<year>\d)/i =~ data[3]
+  str += dec
+  str += data[4] == "M" ? mths[mon] : (mths[mon].to_i + 50).to_s
+  str += day + year + data[0][0]
+  
+  # SIMPLER APPROACH
+  # str += data[3][-2]
+  # str += data[4] == "M" ? mths[data[3][3..5]] : (mths[data[3][3..5]].to_i + 50).to_s
+  # str += data[3][0..1] + data[3][-1] + data[0][0]
+  
+  
   str += data[1].empty? ? "9" : data[1][0]
   str += "9AA"
+  
+  
+  
 end
 
 # BEST SOLUTIONS
