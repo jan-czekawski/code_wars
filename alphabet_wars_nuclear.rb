@@ -35,7 +35,7 @@
 # [a][b][c]    => "abc"
 # ##a[a]b[c]#  => "c"
 
-
+# MY SOLUTION
 def alphabetWar(battlefield)
   if battlefield.count("\#") == 0
     battlefield.gsub(/[\[\]]/, '')
@@ -133,6 +133,44 @@ def alphabetWar(battlefield)
     #                   )/x, '')
     # battlefield.gsub(/[\#\[\]]/, '')
   end
+end
+
+
+# BEST SOLUTIONS
+
+def alphabetWar(battlefield)
+  nuclear_strike, shelter_first, shelter_last, nuclear_wave, result = '#', '[', ']', '', []
+    unless battlefield.include?(nuclear_strike)
+      result = battlefield.tr('[]','')
+    else
+      battlefield.each_char.with_index do |char, index|
+        case char
+          when shelter_first
+            result << nuclear_wave and nuclear_wave = '' unless nuclear_wave.empty?
+              in_shelter, last_index = [], index
+              in_shelter = battlefield[index..last_index] and last_index+=1 until in_shelter[-1] == shelter_last
+            result << in_shelter[1...-1]
+          when nuclear_strike then nuclear_wave << char
+        end
+        result << nuclear_wave and nuclear_wave = '' if index == battlefield.size-1 && !nuclear_wave.empty?
+      end
+
+      result.select!.with_index do |item, index|
+        next_item, prev_item = result[index+1], result[index-1]
+            case index
+              when 0
+                !item.include?(nuclear_strike) && next_item.count(nuclear_strike) < 2
+              when result.size-1
+                !item.include?(nuclear_strike) && prev_item.count(nuclear_strike) < 2
+              else
+                (!prev_item.include?(nuclear_strike) && !item.include?(nuclear_strike) && next_item.count(nuclear_strike) < 2) ||
+                (prev_item.count(nuclear_strike) < 2 && !item.include?(nuclear_strike) && !next_item.include?(nuclear_strike))
+            end
+      end
+
+    result = result.join
+    end
+  result
 end
 
 p alphabetWar("[ikxlgq][lrxxbf][tfxnrghs]ehlxnmkciwklbxeeldyzeqvemcipcwpeyufyoooaq[tygnze]r#n") # "ikxlgqlrxxbftfxnrghstygnze"
