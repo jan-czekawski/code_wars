@@ -40,28 +40,101 @@ def alphabetWar(battlefield)
   if battlefield.count("\#") == 0
     battlefield.gsub(/[\[\]]/, '')
   elsif battlefield.count("\#") == 1
-    battlefield.gsub(/.*\[(.+)\].*/, '\1').sub(/\#/, '')
+    # battlefield.gsub(/.*\[(.+)\].*/, '\1').sub(/\#/, '')
+    
+    # battlefield.gsub(/(\#|[^(\[\w+\])])/, '')
+    # battlefield.match(/(\[[^\[\]]*\])/)
+    # battlefield.match(//)
+    # new_batt = battlefield.match(/(\[\w+\])+/)
+
+    new_batt = ""
+    battlefield.size.times do |x|
+      if battlefield[x] == "["
+        y = x
+        until battlefield[y] == "]"
+          y += 1
+        end
+        new_batt += battlefield[x+1..y-1]
+        x = y
+      end
+    end    
+    
+    new_batt
+    
   else
-    p "BUNKER"
-    # battlefield.gsub(/(?<bunker>\[.+\])\k<bomb>*/, '\k<bunker>')
-    # battlefield.gsub(/[^\#]*(\[.+\])[^\#]*/, '\1')
-    # battlefield.gsub(/(?<=\[).+(?=\])/, '')
-    battlefield.gsub(/[^( \# | [^ (\[.+\])+ ] ) ] /x, '')
-  
+    new_batt, surv = "", ""
+    battlefield.size.times do |x|
+      if battlefield[x] == "#"
+        new_batt += battlefield[x]
+      elsif battlefield[x] == "["
+        y = x
+        until battlefield[y] == "]"
+          y += 1
+        end
+        new_batt += battlefield[x..y]
+        x = y
+      end
+    end
+    
+    
+    # p alphabetWar("[cmuzkxw][xdqxjyae]mbmzbzopvpxtzwxgarsgeoacux[lawvuu]
+    # blrtecccz##vvrjzhfuvojrmnzkqlajcowlqxnjywewhuipohawhsxhlzoggtgiby") #"cmuzkxwxdqxjyae"
+    
+    new_batt.size.times do |m|
+      if new_batt[m] == "["
+        n = m
+        until new_batt[n] == "]"
+          n += 1
+        end
+
+        both = m > 1 && (new_batt[m-1] == "#" && new_batt[n+1] == "#")
+        right = (new_batt[n+1] == "#" && new_batt[n+2] == "#")
+        left = m > 2 && (new_batt[m-1] == "#" && new_batt[m-2] == "#")
+        
+        unless both || right || left 
+          surv += new_batt[m+1..n-1]
+        end
+        
+      end
+    end
+    
+    surv
+    # bunker = /
+    #           \[
+    #             [^
+    #               \[\]
+    #             ]+
+    #           \]
+    #         /x
+    # battlefield.gsub!(/
+    #                 [^\#]*         # => 0 or more chars other than "#"
+    #                 (#{bunker})    # => group with "bunker regex"
+    #                 [^\#]*         # => 0 or more chars other than "#"
+    #                 /x, '\1') # => delete any sign which isn't bomb or in a bunker
+    # battlefield.gsub!(/(
+    #                     (?<=\#\#)#{bunker}
+    #                     |
+    #                     (?<=\#)#{bunker}(?=\#)
+    #                     |
+    #                     #{bunker}(?=\#\#)
+    #                   )/x, '')
+    # battlefield.gsub(/[\#\[\]]/, '')
   end
-  # battlefield.gsub(//, '')
 end
 
+# p alphabetWar("[ikxlgq][lrxxbf][tfxnrghs]ehlxnmkciwklbxeeldyzeqvemcipcwpeyufyoooaq[tygnze]r#n") # "ikxlgqlrxxbftfxnrghstygnze"
 
 # p alphabetWar('abde[fgh]ijk') # 'abdefghijk')
 # p alphabetWar('ab#de[fgh]ijk') # 'fgh')
 # p alphabetWar('ab#de[fgh]ij#k') # '')
-p alphabetWar('##abde[fgh]ijk') # '')
+# p alphabetWar('##abde[fgh]ijk') # '')
 # p alphabetWar('##abde[fgh]ijk[mn]op') # 'mn')
-p alphabetWar('#abde[fgh]i#jk[mn]op') # 'mn')
+# p alphabetWar('#abde[fgh]i#jk[mn]op') # 'mn')
 # p alphabetWar('[ab]adfd[dd]##[abe]dedf[ijk]d#d[h]#') # 'abijk')
 # p alphabetWar('##abde[fgh]') # '')  
 # p alphabetWar('abde[fgh]') # 'abdefgh')  
 # p alphabetWar('#[a]#[b]#') # '')    
 # p alphabetWar('[a]##[b]') # '')     
 # p alphabetWar('[a]a[b]') # 'aab')
+
+# p alphabetWar("[cmuzkxw][xdqxjyae]mbmzbzopvpxtzwxgarsgeoacux[lawvuu]blrtecccz##vvrjzhfuvojrmnzkqlajcowlqxnjywewhuipohawhsxhlzoggtgiby") #"cmuzkxwxdqxjyae"
