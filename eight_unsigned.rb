@@ -13,7 +13,24 @@ class String
   end
 end
 
+# BEST SOLUTIONS
+class String
+  def eight_bit_number?
+    /\A(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\z/ === self
+  end
+end
 
+class String
+  def eight_bit_number?
+    ('0'..'255') === self
+  end
+end
+
+class String
+  def eight_bit_number?
+    to_i.to_s == self && to_i >= 0 && to_i <= 255
+  end
+end
 
 
 p "".eight_bit_number?#, false
