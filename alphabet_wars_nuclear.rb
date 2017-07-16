@@ -154,7 +154,6 @@ def alphabetWar(battlefield)
         end
         result << nuclear_wave and nuclear_wave = '' if index == battlefield.size-1 && !nuclear_wave.empty?
       end
-
       result.select!.with_index do |item, index|
         next_item, prev_item = result[index+1], result[index-1]
             case index
@@ -167,29 +166,28 @@ def alphabetWar(battlefield)
                 (prev_item.count(nuclear_strike) < 2 && !item.include?(nuclear_strike) && !next_item.include?(nuclear_strike))
             end
       end
-
     result = result.join
     end
   result
 end
 
-p alphabetWar("[ikxlgq][lrxxbf][tfxnrghs]ehlxnmkciwklbxeeldyzeqvemcipcwpeyufyoooaq[tygnze]r#n") # "ikxlgqlrxxbftfxnrghstygnze"
+# p alphabetWar("[ikxlgq][lrxxbf][tfxnrghs]ehlxnmkciwklbxeeldyzeqvemcipcwpeyufyoooaq[tygnze]r#n") # "ikxlgqlrxxbftfxnrghstygnze"
 
-p alphabetWar('abde[fgh]ijk') # 'abdefghijk')
-p alphabetWar('ab#de[fgh]ijk') # 'fgh')
-p alphabetWar('ab#de[fgh]ij#k') # '')
-p alphabetWar('##abde[fgh]ijk') # '')
-p alphabetWar('##abde[fgh]ijk[mn]op') # 'mn')
-p alphabetWar('#abde[fgh]i#jk[mn]op') # 'mn')
+# p alphabetWar('abde[fgh]ijk') # 'abdefghijk')
+# p alphabetWar('ab#de[fgh]ijk') # 'fgh')
+# p alphabetWar('ab#de[fgh]ij#k') # '')
+# p alphabetWar('##abde[fgh]ijk') # '')
+# p alphabetWar('##abde[fgh]ijk[mn]op') # 'mn')
+# p alphabetWar('#abde[fgh]i#jk[mn]op') # 'mn')
 p alphabetWar('[ab]adfd[dd]##[abe]dedf[ijk]d#d[h]#') # 'abijk')
-p alphabetWar('##abde[fgh]') # '')  
-p alphabetWar('abde[fgh]') # 'abdefgh')  
-p alphabetWar('#[a]#[b]#') # '')    
-p alphabetWar('[a]##[b]') # '')     
-p alphabetWar('[a]a[b]') # 'aab')
+# p alphabetWar('##abde[fgh]') # '')  
+# p alphabetWar('abde[fgh]') # 'abdefgh')  
+# p alphabetWar('#[a]#[b]#') # '')    
+# p alphabetWar('[a]##[b]') # '')     
+# p alphabetWar('[a]a[b]') # 'aab')
 
-p alphabetWar("ybrvwtyiouvvfkwosmqwyfd#c[godxmfc]bnmodxhoupwmagxvoowpegmjchoi[slsqcr]k##a") #Expected: "godxmfc", instead got: ""
-p alphabetWar("[cmuzkxw][xdqxjyae]mbmzbzopvpxtzwxgarsgeoacux[lawvuu]blrtecccz##vvrjzhfuvojrmnzkqlajcowlqxnjywewhuipohawhsxhlzoggtgiby") #"cmuzkxwxdqxjyae"
+# p alphabetWar("ybrvwtyiouvvfkwosmqwyfd#c[godxmfc]bnmodxhoupwmagxvoowpegmjchoi[slsqcr]k##a") #Expected: "godxmfc", instead got: ""
+# p alphabetWar("[cmuzkxw][xdqxjyae]mbmzbzopvpxtzwxgarsgeoacux[lawvuu]blrtecccz##vvrjzhfuvojrmnzkqlajcowlqxnjywewhuipohawhsxhlzoggtgiby") #"cmuzkxwxdqxjyae"
 
 
-p alphabetWar("hionzhoftnilefvkqkcfumibjwhhggolqcdvgpasqcokaczsojcdvewgjo[apcqr][bvne]h##s[ugqqna]vsjufpvpdyovfizpwigokzctyro[cgpbtx]b##i") #Expected: "apcqr", instead got: ""
+# p alphabetWar("hionzhoftnilefvkqkcfumibjwhhggolqcdvgpasqcokaczsojcdvewgjo[apcqr][bvne]h##s[ugqqna]vsjufpvpdyovfizpwigokzctyro[cgpbtx]b##i") #Expected: "apcqr", instead got: ""
