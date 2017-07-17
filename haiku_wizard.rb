@@ -59,7 +59,8 @@
 # the return string should display a beautiful haiku with the correct structure.
 # Enjoy!
 
-WORDS = [
+# WORDS = [
+$words = [
 ["like", "a", "tweet", "what", "for", "world", "whale", "one", "last", "sun"],
 ["ocean", "beauty", "tweet", "monster", "yellow", "return", "despair", "flower", "return", "contrast"],
 ["romantic", "curious", "banana", "jealousy", "tactlessly", "remorseful", "follower", "elephant", "however", "instagram"],
@@ -69,7 +70,7 @@ WORDS = [
 ["oversimplification", "individuality", "decriminalisation", "compartmentalisation", "anaesthesiologist", "industrialisation", "buckminsterfullerene", "irresponsibility", "autobiographical", "utilitarianism"]]
 
 
-
+# MY SOLUTION
 def haiku_wizard(arr)
   txt = ""
   arr.each_with_index do |line, ln_id|
@@ -82,8 +83,36 @@ def haiku_wizard(arr)
   txt
 end
 
+# BEST SOLUTIONS
+def haiku_wizard(arr)
+  arr.map do |sub_arr|
+    sub_arr.map do |numb|
+      a, b = numb.to_s.chars.map(&:to_i)
+      $words[a-1][b]
+    end.join(" ")
+  end.join("\n")
+end
 
 
+def get_word(num)
+  num = num.to_s
+  $words[num[0].to_i - 1][num[1].to_i]
+end
+
+def haiku_wizard(arr)
+  arr.map{ |x| x.map{ |num| get_word(num) }.join(" ") }.join("\n")
+end
+
+
+def haiku_wizard(arr)
+  arr.map do |subarray|
+    subarray.map do |num|
+      verse_index = (num/10) - 1
+      word_index = (num%10)
+      $words[verse_index][word_index]
+    end.join(" ")
+  end.join("\n")
+end
 
 p haiku_wizard([[10, 11, 23, 16], [50, 12, 14], [15, 40]]) # "like a monster whale\nlackadaisical tweet for\nworld salmonella")
 p haiku_wizard([[11, 30, 17], [51, 21], [52]]) # "a romantic one\nserendipity beauty\ncolonoscopy")
