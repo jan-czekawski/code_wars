@@ -40,7 +40,39 @@ def to_query_string(data)
   end.join("&")
 end
 
+# BEST SOLUTION
+def to_query_string(d)
+  d.keys.sort.map{|k| d[k].class==Array ? d[k].map{|e| "#{k}=#{e}"}.join("&") : "#{k}=#{d[k]}"}.join("&")
+end
 
+def to_query_string(data)
+  data.each_pair.map do |k, v|
+    unless v.is_a? Array
+      k.to_s + '=' + v.to_s
+    else
+      v.map { |elmnt| k.to_s + '=' + elmnt.to_s }
+    end
+  end.flatten.sort.join('&')
+end
+
+def to_query_string(data)
+  data.sort.each_with_object([]) do |(key, value), arr|
+    if Array === value
+      value.each { |v| arr << "#{key}=#{v}" }
+    else
+      arr << "#{key}=#{value}"
+    end
+  end.join("&")
+end
+
+def to_query_string(data)
+  data.sort.map do |k, v|
+    case v
+      when Array then v.map { |e| "#{k}=#{e}" }.join('&')
+      else "#{k}=#{v}"
+    end
+  end.join('&')
+end
 
 p to_query_string({"a"=>8, "8"=>"foo", "b"=>"b", "h"=>"foo", "7"=>"g", "1"=>6, "c"=>5, "CodeWars"=>"h", "5"=>"bar"})
 # "1=6&5=bar&7=g&8=foo&CodeWars=h&a=8&b=b&c=5&h=foo"
