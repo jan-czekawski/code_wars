@@ -14,9 +14,19 @@ def longest_word(string_of_words)
 end
 
 
+# BEST SOLUTIONS
+def longest_word(string_of_words)
+  string_of_words.split.sort_by(&:length).pop
+end
 
-    p longest_word('a b c d each') # , "each" )
-    p longest_word('each step') # , "step" )
-    p longest_word('forward each step going') # , "forward" )
-    p longest_word('brings each step going') # , "brings" )
-    p longest_word('brings each opportunity step going') # , "opportunity" )
+def longest_word(string)
+  word = ""
+  string.split(' ').to_a.each { |w| word = word.length <= w.length ? w : word }
+  word
+end
+
+p longest_word('a b c d each') # , "each" )
+p longest_word('each step') # , "step" )
+p longest_word('forward each step going') # , "forward" )
+p longest_word('brings each step going') # , "brings" )
+p longest_word('brings each opportunity step going') # , "opportunity" )
