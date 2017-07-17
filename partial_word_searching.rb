@@ -13,7 +13,7 @@
 # If the string to search for is "me", and the array to search is 
 # ["home", "milk", "Mercury", "fish"], the method should return ["home", "Mercury"].
 
-
+# MY SOLUTION
 def findWord(query, array_of_strings)
   endarray = []
   # array_of_strings.select { |str| str.match(Regexp.new(query, true)) }
@@ -21,7 +21,11 @@ def findWord(query, array_of_strings)
   endarray.empty? ? ["Empty"] : endarray
 end
 
-
+# BEST SOLUTION
+def findWord(query, array)
+   a = array.grep(/#{query}/i)
+   a.empty? ? ["Empty"] : a
+end
 
 a = ["elf", "bog creature", "bee ","milk","FROGS"]
 p findWord("og", a) # == "bog creature", 'Incorrect.')
