@@ -49,6 +49,5 @@ def give_change(ary)
   bills
 end
 
-
 p give_change(365) #, [0,1,1,0,1,3])
 p give_change(217) #, [2,1,1,0,0,2])
