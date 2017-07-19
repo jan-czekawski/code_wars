@@ -15,8 +15,17 @@
 # MY SOLUTION
 def find_deleted_number(arr, mixed_arr)
   (arr - mixed_arr).size > 0 ? (arr - mixed_arr)[0] : 0
+  # (arr - mixed_arr)[0] || 0
 end
 
+# BEST SOLUTIONS
+def find_deleted_number(arr, mixed_arr)
+  (arr - mixed_arr).pop || 0
+end
+
+def find_deleted_number(arr, mixed_arr)
+    (arr - mixed_arr.sort).join.to_i
+end
 
 p find_deleted_number([1,2,3,4,5], [3,4,1,5]) # 2, 'Deletion')
 p find_deleted_number([1,2,3,4,5,6,7,8,9], [1,9,7,4,6,2,3,8]) # 5, 'Deletion')
