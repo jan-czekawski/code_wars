@@ -14,6 +14,18 @@ def filter_lucky(lst)
   lst.select { |num| "#{num}" =~ /7/ }
 end
 
+# CLEVER SOLUTIONS
+def filter_lucky(lst)
+  lst.select{|n|n.to_s.include?('7')}
+end
+
+def filter_lucky(lst)
+  lst.select {|l| l if l.to_s.split("").include? "7"}
+end
+
+def filter_lucky(lst)
+  lst.select { |elem| elem.to_s.index('7') }
+end
 
     p filter_lucky([7]) # [7], "Expected [7]")
     p filter_lucky([77,8]) # [77], "Expected [77]")
