@@ -13,8 +13,23 @@ def get_age(age)
   age.sub(/^(\d+).*/, '\1').to_i
 end
 
+# BEST SOLUTIONS
+def get_age(age)
+   age.to_i
+end
 
+def get_age(a)
+  a[0].to_i
+end
 
+def get_age(age)
+  age.slice(0).to_i
+end
+
+def get_age(age) 
+  age.split('')
+  age[0].to_i
+end
 
 p get_age("0 years old") #, 0)
 p get_age("2 years old") #, 2)
