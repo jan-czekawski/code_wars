@@ -10,8 +10,17 @@
 # MY SOLUTION
 def accum(s)
   s.chars.map.with_index { |let, ix| (let.downcase * (ix + 1)).capitalize }.join("-")
+  # s.chars.map.with_index(1) { |let, ix| (let * ix).capitalize }.join("-")
 end
 
+# BEST SOLUTIONS
+def accum(s)
+  s.chars.each_with_index.map{ |c, i| c.upcase + c.downcase * i }.join('-')
+end
+
+def accum(s)
+  s.chars.map.with_index { |char,index| (char*(index+1)).capitalize }.join("-")
+end
 
 p accum("ZpglnRxqenU") # "Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu")
 p accum("NyffsGeyylB") # "N-Yy-Fff-Ffff-Sssss-Gggggg-Eeeeeee-Yyyyyyyy-Yyyyyyyyy-Llllllllll-Bbbbbbbbbbb")
