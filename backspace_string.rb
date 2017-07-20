@@ -32,6 +32,41 @@ def clean_string(string)
   arr.join
 end
 
+# BEST SOLUTIONS
+def clean_string(string)
+  string.chars.each_with_object('') { |c, res| c != '#' ? res << c : res.chop! }
+end
+
+def clean_string(string)
+  string.chars.reduce('') { |result, c| c == '#' ? result.chop : result << c }
+end
+
+def clean_string(string)
+  string.chars.reduce('') { |a, ch| ch == '#' ? a.chop : a + ch }
+end
+
+
+
+def backspace(string)
+  if string.length > 1
+    return string[0..(string.length - 2)]
+  else
+    return ''
+  end
+end
+
+def clean_string(string)
+  new_string = ''
+  string.split('').each do |c|
+    if c == '#'
+      new_string = backspace(new_string)
+    else
+      new_string += c
+    end
+  end
+  return new_string
+end
+
 
 p clean_string('abc#d##c') #, "ac")
 p clean_string('abc####d##c#')# , "" )
