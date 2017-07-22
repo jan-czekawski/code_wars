@@ -94,4 +94,47 @@ def decodeMorse(code)
   end.join(" ")
 end
 
+# BEST SOLUTIONS
+def decodeMorse(morseCode)
+  morseCode.strip
+           .split('   ')
+           .map { |word| decodeWord(word) }
+           .join(' ')
+end
+
+private
+
+def decodeWord(morseCode)
+  morseCode.split
+           .map { |char| MORSE_CODE[char] }
+           .join
+end
+
+def decodeMorse(morseCode)
+  # Split the code up into words based on the three-space seperator and
+  # then decode each word in the resulting array.
+  words = morseCode.strip.split('   ').map { |word| decodeWord word }
+  
+  # Return the english sentence with single space seperators between each word.
+  words.join ' '
+end
+
+def decodeWord(word)
+  # Split the word up into individual letters based on the single-space
+  # seperator and decode each letter in the resulting array.
+  letters = word.split(' ').map { |letter| MORSE_CODE[letter] }
+  
+  # Return the english word as a whole.
+  letters.join ''
+end
+
+def decodeMorse(morseCode)
+  morseCode.strip.gsub(/[.-]*/) {|charCode| MORSE_CODE[charCode] }.gsub(/  ?([^\ ])/, '\1')
+end
+
+def decodeMorse(morseCode)
+  #your brilliant code here
+  morseCode.strip.gsub('   ',' # ').split(' ').map{|x| x == '#'? ' ' : MORSE_CODE[x]}.join
+end
+
 p decodeMorse('.... . -.--   .--- ..- -.. .') #, 'HEY JUDE')
