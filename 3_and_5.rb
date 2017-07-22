@@ -27,7 +27,7 @@ def solution(number)
 end
 
 def solution(n)
- 1.upto(n-1).to_a.keep_if { |num| (num % 5 == 0) || (num % 3 == 0) }.reduce(:+)
+1.upto(n-1).to_a.keep_if { |num| (num % 5 == 0) || (num % 3 == 0) }.reduce(:+)
 end
 
 def solution(number)
@@ -40,6 +40,35 @@ end
 def solution(number)
   candidates = ->(k) { (k % 3) * (k % 5) == 0 }
   (1...number).select(&candidates).reduce(0, &:+)
+end
+
+def solution(number)
+  sum = 0
+  number % 3 == 0 ? mults = number/3 - 1 : mults = number/3
+  mult = 1
+  
+  mults.times do
+    sum += 3 * mult
+    mult += 1
+  end
+  
+  number % 5 == 0 ? mults = number/5 - 1 : mults = number/5
+  mult = 1
+  mults.times do
+    sum += 5 * mult if 5 * mult % 15 != 0
+    mult += 1
+  end
+  
+  sum
+end
+
+def solution(number)
+  sumX(3, number) + sumX(5, number) - sumX(15, number)
+end
+
+def sumX(x, number)
+  n = (number - 1) / x
+  x * n * (n + 1) / 2
 end
 
 p solution(10) # 23
