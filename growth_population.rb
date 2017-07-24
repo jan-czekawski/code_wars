@@ -30,17 +30,48 @@
 # Note: Don't forget to convert the percent parameter as a percentage 
 # in the body of your function: if the parameter percent is 2 you have to convert it to 0.02.
 
-
+# MY SOLUTION
 def nb_year(p0, percent, aug, p)
   n = 0
-  percent /= 100.to_f
+  # percent /= 100.to_f
   
   while p0 < p
-    p0 += (p0 * percent + aug).to_i
+    p0 += (p0 * percent / 100 + aug).to_i
     n += 1
   end
   
   n
+end
+
+# BEST SOLUTIONS
+def nb_year(p0, percent, aug, p)  
+  percent = percent.to_f / 100
+  
+  years = 0
+  while p0 < p
+    p0 += p0 * percent + aug
+    years += 1
+  end
+
+  years
+end
+
+def nb_year(p0, percent, aug, p)
+  n = 0
+  percent = percent * 0.01
+  
+  while p0 < p
+    p0 += (p0 * percent).to_i + aug
+    n += 1
+  end
+  
+  n
+end
+
+def nb_year(p0, percent, aug, p)
+  y = 1
+  y += 1 while (p0 = (p0*(1 + percent.to_f/100) + aug).to_i) < p
+  y
 end
 
 
