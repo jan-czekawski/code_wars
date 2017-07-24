@@ -6,7 +6,7 @@
 #Examples: ``` a = "xyaabbbccccdefww" b = "xxxxyyyyabklmopq" longest(a, b) -> "abcdefklmopqwxy"
 # a = "abcdefghijklmnopqrstuvwxyz" longest(a, a) -> "abcdefghijklmnopqrstuvwxyz" ```
 
-
+# MY SOLUTION
 def longest(a1, a2)
   # (a1 + a2).chars.uniq.sort.join
   (a1 + a2).chars
@@ -15,8 +15,14 @@ def longest(a1, a2)
           .join
 end
 
+# BEST SOLUTION
 def longest1(a1, a2)
   (a1.split('') | a2.split('')).sort * ''
+end
+
+def longest(a1, a2)
+  str = a1 + a2
+  str.split(//).sort.join('').squeeze
 end
 
 
