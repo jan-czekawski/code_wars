@@ -24,15 +24,50 @@
 # remove_smallest([5,3,2,1,4]) = [5,3,2,4]
 # remove_smallest([2,2,1,2,1]) = [2,2,2,1]
 
-
+# MY SOLUTION
 def remove_smallest(numbers)
+  return numbers if numbers.empty?
+  
   idx = numbers.find_index(numbers.min)
-  return numbers if idx.nil?
+  # idx = numbers.index(numbers.min)
   numbers.delete_at(idx)
   
   numbers
 end
 
+# BEST SOLUTIONS
+def remove_smallest(numbers)
+  return [] if numbers.empty?
+  numbers.delete_at(numbers.index(numbers.min))
+  numbers
+end
+
+def remove_smallest(numbers)
+  numbers.reject.with_index { |_,i| i == numbers.index(numbers.min) }
+  # numbers.reject.with_index { |x,i| i == numbers.index(numbers.min) }
+end
+
+def remove_smallest(numbers)  
+  numbers.delete_at(numbers.index(numbers.min) || 0)
+  numbers
+end
+
+@numbers = []
+
+def remove_smallest(numbers)
+  @numbers = numbers
+  @my_mutex = Mutex.new
+  @min = 0
+  (numbers.length-1).times.map do |i| Thread.new { sonic(i+1) } end.each(&:join)
+  @numbers.delete_at(@min)
+  return @numbers
+end
+
+def sonic(i)
+  @my_mutex.synchronize do
+    @min = @numbers[@min] >= @numbers[i] ? @numbers[@min] == @numbers[i] ? @min < i ? @min : i : i : @min
+  end
+end
 
 p remove_smallest([1, 2, 3, 4, 5])# [2, 3, 4, 5], "Wrong result for [1, 2, 3, 4, 5]")
 p remove_smallest([5, 3, 2, 1, 4])# [5, 3, 2, 4], "Wrong result for [5, 3, 2, 1, 4]")
