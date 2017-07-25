@@ -24,6 +24,7 @@ end
 def sum_two_smallest_numbers(numbers)
   # numbers.sort.select { |n| n > 0 }.take(2).reduce(0, :+)
   numbers.select { |num| num > 0 }.min(2).inject(:+)
+  numbers.select(&:positive?).min(2).inject(:+)
 end
 
 p sum_two_smallest_numbers([5, 8, 12, 18, 22])# 13) 
