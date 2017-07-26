@@ -28,6 +28,44 @@ def row_sum_odd_numbers(n)
   (min..max).reject(&:even?).inject(:+)
 end
 
+# BEST SOLUTION
+def row_sum_odd_numbers(n)
+  n**3
+end
+
+def row_sum_odd_numbers(n)
+  arr = []
+  idx0 = 0
+  while idx0 < n
+  	arr.empty? ? idx1 = 0 : idx1 = arr[-1] + 2
+  	arr = []
+  	while arr.size < idx0 + 1
+  		arr << idx1 if idx1.odd?
+  		idx1 += 1
+  	end
+  	idx0 += 1
+  end
+  
+  arr.inject(:+)
+end
+
+def row_sum_odd_numbers(n)
+ size = n.downto(0).reduce(:+)
+ num = 1
+ oddz = [1]
+ 
+ size.times do
+   oddz << num+=2
+ end
+ 
+ return oddz[-n-1...-1].inject(:+)
+end
+
+def row_sum_odd_numbers(n)
+  a = n*(n-1) + 1   
+  b = a + (n-1) * 2
+  n * (a + b)/2
+end
 
 p row_sum_odd_numbers(1) # 1)
 p row_sum_odd_numbers(2) # 8)
