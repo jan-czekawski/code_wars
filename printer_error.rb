@@ -27,7 +27,39 @@
 
 # MY SOLUTION
 def printer_error(s)
-  "#{s.scan(/[n-z]/).length}/#{s.size}"
+  "#{s.scan(/[n-z]/).size}/#{s.size}"
+end
+
+# BEST SOLUTIONS
+def printer_error(s)
+  "#{s.count('n-z')}/#{s.length}"
+end
+
+
+def printer_error(s)
+	colors = s.chars
+	total = colors.length
+	errors = 0
+
+	colors.each do |color|
+	 	errors += 1 if ('n'..'z').cover?(color)
+ 	end
+ 	errors.to_s + '/' + total.to_s
+end
+
+def printer_error(s)
+  errors = []
+  total = s.length
+  
+  s.each_char do |x|
+    errors << x if x.between?("n", "z")
+  end 
+  
+  errors.length.to_s + "/" + total.to_s
+end
+
+def printer_error(s)
+  (s.delete("a-m").length).to_s + "/" + (s.length).to_s
 end
 
 s="aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz"
