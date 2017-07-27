@@ -32,6 +32,7 @@
 # that if the Desired Principal 'D' is equal to Principal 'P' this 
 # should return 0 Years.
 
+# MY SOLUTION
 def calculate_years(principal, interest, tax, desired)
   i = 0
   return i if principal == desired
@@ -42,6 +43,36 @@ def calculate_years(principal, interest, tax, desired)
   end
   
   i
+end
+
+# BEST SOLUTIONS
+def calculate_years(principal, interest, tax, desired)
+  year = 0
+  while principal < desired
+    year += 1
+    income = principal * interest
+    principal += income - income * tax
+  end
+  year
+end
+
+def calculate_years(principal, interest, tax, desired)
+  return 0 if principal >= desired      
+  Math::log(desired.to_f / principal, 1 + interest * (1 - tax)).ceil
+end
+
+def calculate_years(principal, interest, tax, desired, year=0)
+  return year if desired<=principal
+  calculate_years(principal+(principal*interest-principal*interest*tax),interest,tax,desired,year+=1)
+end
+
+def calculate_years(principal, interest, tax, desired)
+  r = 0
+  while principal < desired
+    principal += principal*interest*(1-tax)
+    r += 1
+  end
+  r
 end
 
 p calculate_years(1000, 0.05, 0.18, 1100) # 3)
