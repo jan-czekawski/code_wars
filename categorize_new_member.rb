@@ -31,6 +31,30 @@ def openOrSenior(data)
   data.map { |x| x[1] > 7 && x[0] >= 55 ? "Senior" : "Open" }
 end
 
+# BEST SOLUTIONS
+def openOrSenior(data)
+  data.map { |age, handicap| age >= 55 && handicap > 7 ? "Senior" : "Open" }
+end
+
+def openOrSenior(data)
+  data.map { |i| Member.new(i).category }
+end
+
+class Member
+  def initialize(data)
+    @age = data.first
+    @handicap = data.last
+  end
+  
+  def category
+    if @age >= 55 && @handicap > 7
+      'Senior'
+    else
+      'Open'
+    end
+  end
+ end
+
 p openOrSenior([[45, 12],[55,21],[19, -2],[104, 20]]) #['Open', 'Senior', 'Open', 'Senior'])
 p openOrSenior([[3, 12],[55,1],[91, -2],[54, 23]]) #['Open', 'Open', 'Open', 'Open'])
 p openOrSenior([[59, 12],[55,-1],[12, -2],[12, 12]]) #['Senior', 'Open', 'Open', 'Open'])
