@@ -72,6 +72,21 @@ def series_sum(n)
   "#{format("%.2f", total)}"
 end
 
+def series_sum(n)
+  
+  arr = []
+  count = 1
+  denom = 1
+  
+  while count <= n
+    arr << 1.00/denom
+    denom += 3
+    count += 1
+  end 
+  
+  n != 0 ? '%.2f' % arr.reduce(:+) : "0.00"
+end
+
 p series_sum(0)# "1.00")
 p series_sum(1)# "1.00")
 p series_sum(2)# "1.25")
