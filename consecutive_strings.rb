@@ -22,6 +22,25 @@ def longest_consec(strarr, k)
   long.max_by(&:size)
 end
 
+# BEST SOLUTION
+def longest_consec(strarr, k)
+  return "" unless k.between?(1, strarr.length)
+  strarr.each_cons(k).map(&:join).max_by(&:length) || ""
+end
+
+def longest_consec(strarr, k)
+  return "" if (strarr.length == 0) or (k > strarr.length) or (k <= 0)
+  
+  longest = ""
+  strarr.each_with_index do |i, index|
+    candidate = "#{strarr[index..index+k-1].join('')}"
+    if longest.length < candidate.length
+      longest = candidate
+    end
+  end
+  longest
+end
+
 
 
 p longest_consec(["zone", "abigail", "theta", "form", "libe", "zas"], 2)# "abigailtheta")
@@ -33,3 +52,13 @@ p longest_consec(["zone", "abigail", "theta", "form", "libe", "zas"], -2)# "")
 p longest_consec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 3)# "ixoyx3452zzzzzzzzzzzz")
 p longest_consec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 15)# "")
 p longest_consec(["it","wkppv","ixoyx", "3452", "zzzzzzzzzzzz"], 0)# "")
+
+
+# require "benchmark"
+
+# n = 100000
+
+# Benchmark.bm do |x|
+#   x.report { n.times { longest_consec1(["itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck","itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck"], 10) } }
+#   x.report { n.times { longest_consec2(["itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck","itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck", "itvayloxrp","wkppqsztdkmvcuwvereiupccauycnjutlv","vweqilsfytihvrzlaodfixoyxvyuyvgpck"], 10) } }
+# end
