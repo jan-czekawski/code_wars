@@ -17,7 +17,7 @@
 # "ABBA" -> 2 # 'A' and 'B' each occur twice
 
 # MY SOLUTION
-def duplicate_count1(text)
+def duplicate_count(text)
   letters = text.downcase.chars
   count = letters.each_with_object(Hash.new(0)) { |let, hash| hash[let] += 1 }
   count.select { |k, v| v > 1}.size
@@ -63,6 +63,23 @@ def duplicate_count(text)
   hsh = Hash.new(0)
   text.downcase.chars.each { |c| hsh[c] += 1 }
   hsh.values.count { |k| k > 1 }
+end
+
+def duplicate_count text
+  text.upcase.chars.uniq.count{|c| text.upcase.count(c) > 1 }
+end
+
+def duplicate_count t
+  t.upcase.scan(/(\w)(?=.*\1)/).uniq.size
+end
+
+def duplicate_count(text)
+   text
+    .downcase
+    .chars
+    .sort
+    .chunk { |c| c }
+    .count { |_, occurrences| occurrences.count > 1 }
 end
 
 p duplicate_count("")# 0)
