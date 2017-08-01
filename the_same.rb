@@ -52,8 +52,39 @@ def comp(array1, array2)
   array2 == array1.sort
 end
 
-p comp( [121, 144, 19, 161, 19, 144, 19, 11], 
-        [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]) #, true)
+# BEST SOLUTIONS
+def comp(array1, array2)
+  array1.nil? || array2.nil? ? false : array1.sort.map {|v| v ** 2} == array2.sort
+end
+
+def comp(array1, array2)
+  array1.sort.map {|num| num ** 2} == array2.sort
+  rescue 
+  false
+end
+
+def comp(array1, array2)
+  !array1.nil? &&
+    !array2.nil? &&
+    array1.sort.zip(array2.sort).all? { |(a, b)| a ** 2 == b }
+end
+
+def comp(array1, array2)
+    return false if array1.nil? || array2.nil? 
+    return false if array1.length != array2.length
+    l = lambda do |x, arr|
+        arr.select { |y| x == y}.length 
+    end   
+    i = 0
+    while i < array1.length do
+        return false if l.call(array1[i], array1) != l.call(array1[i] * array1[i], array2)
+        i += 1
+    end
+    true
+end
+
+p comp( [121, 144, 19, 161, 19, 144, 19, 11], [11*11, 121*121, 144*144, 19*19, 161*161, 19*19, 144*144, 19*19]) #, true)
+
 p comp(nil, nil)
 
-        
+    
