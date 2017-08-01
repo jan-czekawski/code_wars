@@ -123,6 +123,71 @@ def dirReduc(arr)
   result
 end
 
+OPPOSITE = {
+  "NORTH" => "SOUTH",
+  "SOUTH" => "NORTH",
+  "EAST"  => "WEST",
+  "WEST"  => "EAST"
+}
+
+def dirReduc(arr)
+  stack = []
+  arr.each do |dir|
+    OPPOSITE[dir] == stack.last ? stack.pop : stack.push(dir)
+  end
+  stack
+end
+
+def dirReduc(arr)
+  arr = arr.join(' ')
+  nil while arr.gsub!(/ ?NORTH SOUTH ?/, ' ') or 
+            arr.gsub!(/ ?SOUTH NORTH ?/, ' ') or 
+            arr.gsub!(/ ?WEST EAST ?/, ' ') or 
+            arr.gsub!(/ ?EAST WEST ?/, ' ')
+  arr.strip.split(/ +/)
+end
+
+def dirReduc(arr)
+    opposite = lambda do |dir|
+        if (dir == "NORTH") then rep = "SOUTH"
+        elsif (dir == "SOUTH") then rep = "NORTH"
+        elsif (dir == "EAST") then rep = "WEST"
+        elsif (dir == "WEST") then rep = "EAST"
+        else rep = ""
+        end
+        rep
+    end
+    res = []
+    if (arr.length > 0) then
+        if (arr.length > 1) then
+            if (arr[0] == opposite.call(arr[1])) then
+                res = dirReduc(arr[2..-1])
+            else
+                res << arr[0]
+                res << dirReduc(arr[1..-1])
+            end
+        else
+            res << arr
+        end
+    else
+        res << []
+    end
+    res = res.flatten
+    if (res == arr) then return arr
+    else res = dirReduc(res) end
+    res
+end
+
+def dirReduc(arr)  
+  arr.each_with_object([]) do |direction, object|
+    case [direction, object.last.to_s].sort.join
+      when "NORTHSOUTH", "EASTWEST"
+        object.pop
+      else
+        object << direction     
+    end
+  end
+end
 
 a = ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"]
 p dirReduc(a) #, ["WEST"])
