@@ -51,6 +51,37 @@ class SequenceSum
   end
 end
 
+# BEST SOLUTIONS
+class SequenceSum
+  def self.show_sequence(n)
+    n < 0 ? "#{n}<0" : [*(0..n)].join('+') << "#{ n.zero? ? '=0' : " = #{(n + 1) * n / 2}" }"
+  end
+end
+
+class SequenceSum
+  def self.show_sequence(n)
+    case n <=> 0
+    when -1 then "#{n}<0"
+    when 0  then "#{n}=0"
+    else         "#{(0..n).to_a.join('+')} = #{(0..n).reduce(:+)}"
+    end 
+  end
+end
+
+# frozen_string_literal: true
+
+class SequenceSum
+  def self.show_sequence(n)
+    return "#{n}<0" if n.negative?
+    return '0=0'    if n.zero?
+
+    seq = (sequence = lambda do |acc = [], counter = 0|
+             counter > n ? acc : sequence.call(acc << counter, counter + 1)
+           end).call
+    "#{seq.join '+'} = #{seq.inject :+}"
+  end
+end
+
 p SequenceSum.show_sequence(0)# "0=0", "This is just an example of how you can write your own TDD tests")
 p SequenceSum.show_sequence(-1)# "-1<0", "This is just an example of how you can write your own TDD tests")
 p SequenceSum.show_sequence(6)# "0+1+2+3+4+5+6 = 21", "This is just an example of how you can write your own TDD tests")
