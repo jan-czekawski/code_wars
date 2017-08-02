@@ -27,7 +27,7 @@
 # All numbers in the list are positive numbers and the 
 # list can be empty.
 
-
+# MY SOLUTION
 def order_weight(strng)
   return "" if strng.empty?
   strng = strng.split.sort
@@ -54,6 +54,69 @@ end
 #   end
 # end
 
+# BEST SOLUTIONS
+def order_weight(string)
+  string.split.sort_by { |n| [n.chars.map(&:to_i).reduce(:+), n] }.join(" ")
+end
+
+def compare a, b
+  c = a.chars.reduce(0){ |s, x| s + x.to_i } <=> b.chars.reduce(0){ |s, x| s + x.to_i } 
+  if c == 0 
+    c = a <=> b
+  end
+  c
+end
+
+def order_weight(strng)
+  weights = strng.split
+  weights.sort{ |a, b| compare a, b }.join " "
+end
+
+
+def order_weight(strng)
+    strng.split
+         .map { |w| {w => w.chars.map(&:to_i).reduce(:+)} }
+         .sort_by { |a| [a.values[0], a.keys] }
+         .map { |w| w.keys[0] }
+         .join ' '
+end
+
+def order_weight(strng)
+  weights = strng.split(" ") #Convert string to array 
+  digitsSum = weights.map{|x| x.chars.map(&:to_i).reduce(:+)} #Add the digits of each member
+  indices = (0...weights.size()).to_a
+  aHash = indices.zip(digitsSum).to_h #Make a hash with two arrays
+  aHash = aHash.sort_by{|k,v| v}.to_h #Sort the hash by digit sum
+
+  keys,values = aHash.keys, aHash.values 
+
+  result = []
+  max = weights.size()
+  i = 0
+  while i < max
+    pack = []
+    pack << weights[keys[i]] #The keys represent the order fake of the weights
+    while i + 1 < max and values[i] == values[i + 1]
+      pack << weights[keys[i+1]] #Accumulate weights with equal valor
+      i += 1
+    end
+    pack = pack.sort #Sort equal weights by string
+    result += pack
+    i += 1
+  end
+  result.join(" ")
+end
+
+def order_weight(strng)
+  strng.split.sort_by{|x| [x.sum - 48 * x.size, x] }*" "
+end
+
+# # lsmith-zenoscave # 10XL, c0nspiracy, g964
+# def order_weight(strng)
+#   lists = Array.new(180) {[]}
+#   strng.split.each{|scr|lists[scr.sum-(?0.ord*scr.size)].push(scr)}
+#   lists.map(&:sort).flatten*" "
+# end
 
 p order_weight("103 123 4444 99 2000")# "2000 103 123 4444 99")
 p order_weight("2000 10003 1234000 44444444 9999 11 11 22 123")# "11 11 2000 10003 22 123 1234000 44444444 9999")
