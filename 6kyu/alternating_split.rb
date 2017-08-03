@@ -50,6 +50,82 @@ def decrypt(enc_txt, n)
   enc_txt
 end
 
+# BEST SOLUTIONS
+def encrypt(text, n)
+  return text if n <= 0
+  encrypt(text.scan(/(.)(.)?/).transpose.reverse.join, n-1)
+end
+
+def decrypt(text, n)
+  return text if n <= 0
+  c, s = text.chars, text.size/2
+  decrypt(c.drop(s).zip(c.take s).join, n-1)
+end
+
+
+def encrypt text, n
+  n.times.reduce(text){|y,_|y.scan(/(.)(.)?/).transpose.reverse.join} rescue text
+end
+
+def decrypt text, n
+  n.times.reduce(text){|y,_|y.scan(/(?=.{#{y.size/2}}(.))(.)/).join[0...y.size]} rescue text
+end
+
+
+def encrypt(text, n)
+  return text if n <=0 or text.nil?
+  n.times do
+    list = text.scan /(.)(.?)/
+    o1 = []
+    o2 = []
+    list.map do|x,y| 
+      o1 << x
+      o2 << y
+    end
+    text = o2.join + o1.join
+  end
+  return text
+end
+
+def decrypt(encrypted_text, n)
+  return encrypted_text if n <=0 or encrypted_text.nil?
+  m = encrypted_text.size/2
+  n.times do
+    text = []
+    m.times do |i|
+      text << encrypted_text[m+i]
+      text << encrypted_text[i]
+    end
+    text << encrypted_text[-1] if encrypted_text.size%2 == 1
+    encrypted_text = text.join
+  end
+  return encrypted_text
+end
+
+
+def encrypt(text, n)
+  return text if text.nil? || text.empty?
+  while n > 0
+    left, right = '', ''
+    text.each_char.with_index do |char, idx|
+      idx.odd? ? left << char : right << char
+    end
+    text = left + right
+    n -= 1
+  end
+  text
+end
+
+def decrypt(text, n)
+  return text if text.nil? || text.empty?
+  half_idx = text.size / 2
+  while n > 0
+    left, right = text[0...half_idx].chars, text[half_idx..-1].chars
+    text = right.zip(left).join
+    n -= 1
+  end
+  text
+end
 
 
 p encrypt("This is a test!", 0)# "This is a test!")
