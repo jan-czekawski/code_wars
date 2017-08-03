@@ -35,6 +35,25 @@ def sum_dig_pow(a, b)
   end
 end
 
+# BEST SOLUTIONS
+def sum_dig_pow(a, b)
+  (a..b).select do |n|
+    n == n.to_s
+          .chars
+          .each
+          .with_index(1)
+          .inject(0) { |memo, (digit, index)| memo + digit.to_i**index }
+  end
+end
+
+def sum_dig_pow(a, b)
+   (a..b).map {|x| eureka(x)}.compact
+end
+
+def eureka n
+  n if (n.to_s.split('').map.with_index(1) {|item, index| item.to_i**index}.inject(:+) == n)
+end
+
 p sum_dig_pow(1, 10)# [1, 2, 3, 4, 5, 6, 7, 8, 9])
 p sum_dig_pow(1, 100)# [1, 2, 3, 4, 5, 6, 7, 8, 9, 89])
 p sum_dig_pow(10, 100)#  [89])
