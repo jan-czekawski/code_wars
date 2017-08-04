@@ -35,5 +35,26 @@ def delete_nth(order,max_e)
   new_ord
 end
 
+# BEST SOLUTIONS
+def delete_nth(order, max_e)
+  occurrences = Hash.new(0)
+  order.reject { |item| (occurrences[item] += 1) > max_e }
+end
+
+def delete_nth(order,max_e)
+  order.each_with_object([]) { |x, a| a.push(x) unless a.count(x) >= max_e }
+end
+
+def delete_nth(order,max_e)
+  order.select.with_index { |num, idx| order[0..idx].count(num) <= max_e }
+end
+
+def delete_nth(order, max_e)
+  order.uniq.each do |num|
+    order.delete_at(order.rindex(num)) until order.count(num) <= max_e
+  end
+  order
+end
+
 p delete_nth([20,37,20,21], 1)# [20,37,21], "From array [20,37,20,21],1 you get")
 p delete_nth([1,1,3,3,7,2,2,2,2], 3)# [1, 1, 3, 3, 7, 2, 2, 2], "From array [1,1,3,3,7,2,2,2,2],3 you get")
