@@ -17,12 +17,34 @@
 # be given negative numbers.
 
 # Test if number is prime
+
+# MY SOLUTION
 def isPrime(num)
   return false if num <= 1
   (2...num).each { |div| return false if num % div == 0 }
   true
 end
 
+# BEST SOLUTIONS
+require "prime"
+def isPrime(num)
+  num.prime?
+end
+
+
+def isPrime(num)
+  return false if num <= 1
+  # (2..num**(1/2.0)).each { |div| return false if num % div == 0 }
+  # (2..num**0.5).each { |div| return false if num % div == 0 }
+  (2..Math.sqrt(num)).each { |div| return false if num % div == 0 }
+  true
+end
+
+def isPrime(num)
+  num < 2 ? false : (2..Math.sqrt(num)).none?{|i| num%i == 0}
+end
+
 p isPrime(2)# true)
 p isPrime(4)# false)
 p isPrime(11)# true)
+p isPrime(300)# false)
