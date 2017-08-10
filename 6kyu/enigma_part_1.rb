@@ -71,6 +71,7 @@
 # X
 # .
 
+# MY SOLUTION
 class Plugboard
   def initialize(wires = "")
     raise if wires.size > 20 || wires.size.odd? || wires.split("").uniq != wires.split("")
@@ -80,6 +81,81 @@ class Plugboard
   def process(wire = "")
     str = @wires.select { |pair| pair.include?(wire) }[0]
     str.nil? ? wire : str.delete(wire)
+  end
+end
+
+
+# BEST SOLUTIONS
+class Plugboard
+  attr_reader :mapping
+  
+  def initialize(wires = "")
+    fail "Not enough wire ends defined" if wires.length.odd?
+    fail "Too many wires defined" if wires.length > 20
+    fail "Letters can only be mapped once" unless wires.chars.uniq == wires.chars
+    @mapping = Hash[wires.scan(/(.)(.)/).flat_map { |a, b| [[a, b], [b, a]] }]
+  end
+  
+  def process(wire)
+    mapping.fetch(wire, wire)
+  end
+end
+
+
+class Plugboard
+  def initialize wires = ''
+    @wires = wires
+    raise if @wires.size > 20 || @wires != @wires.chars.uniq.join || @wires.size % 2 != 0
+  end
+  def process(wire)
+    i = @wires.chars.index(wire)
+    i.nil? ? wire : @wires[i + 1 - 2*(i%2)]
+  end
+end
+
+class Plugboard
+  def initialize(wires="")
+    @wires = wires
+    raise if @wires.size.odd? || (@wires.size) > 20 || @wires != @wires.chars.uniq.join
+  end
+  def process(wire)
+    i = @wires.chars.index(wire)
+    if i.nil?
+      wire
+    elsif i.even?
+      @wires[i+1]
+    else i.odd?
+      @wires[i-1]
+    end
+  end
+end
+
+
+class Plugboard
+  def initialize(wires='')
+    if wires.empty?
+      @wires = {}
+      return
+    end
+    
+    characters = wires.chars.to_a
+
+    if wires !~ /\A[A-Z]+\z/ 
+      raise "Invalid wires specified in input: #{wires}"
+    elsif wires.length % 2 == 1 
+      raise "Odd number of wires specified: #{wires}"
+    elsif characters.uniq.length != characters.length
+      raise "Wires are defined multiple times: #{wires}"
+    elsif wires.length > 20
+      raise "Too many wire pairs are defined, limit 10 pairs: #{wires}"
+    end
+    
+    dictionary = Hash[characters.each_slice(2).to_a]
+    @wires = dictionary.merge(dictionary.invert)
+  end
+  
+  def process(wire)
+    @wires.fetch(wire, wire)
   end
 end
 
