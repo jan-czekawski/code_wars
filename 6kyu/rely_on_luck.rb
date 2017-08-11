@@ -19,6 +19,42 @@ class Float
   end
 end
 
+
+# BEST SOLUTIONS
+srand(1)
+guess = 42
+
+
+Kernel::srand(2)
+guess = (Kernel::rand() * 100 + 1).floor
+Kernel::srand(2)
+
+
+guess = 
+
+guess = 10
+$lucky_number = 10
+
+
+guess = Struct.new(:foobar) do 
+  def self.==(x)
+    true
+  end
+end
+
+guess = ""
+def guess.==(other) true end
+  
+  
+  
+module Kernel
+def self.rand(max=0)
+  return 0
+end
+end
+
+guess = 1
+
 #This is exactly what the real test fixture looks like.
 lucky_number = (Kernel::rand() * 100 + 1).floor
 p lucky_number == guess
