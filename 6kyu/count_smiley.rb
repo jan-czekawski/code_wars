@@ -29,12 +29,30 @@
 
 # MY SOLUTION
 def count_smileys(arr)
-  arr.grep(/(\:|\;)(\-|\~)?(\)|D)/).count
+  # arr.grep(/(\:|\;)(\-|\~)?(\)|D)/).count
+  arr.grep(/\A(\:|\;)(\-|\~)?(\)|D)\z/).count
 end
 
+# BEST SOLUTIONS
+def count_smileys(arr)
+  # arr.count { |e| e =~ /(:|;){1}(-|~)?(\)|D)/ }
+  arr.count { |e| e =~ /(:|;)(-|~)?(\)|D)/ }
+end
+
+def count_smileys(arr)
+  arr.count { |e| e =~ /[:;][-~]?[)D]/ }
+end
+
+def count_smileys(arr)
+arr.select { |x| 
+x[0].match(/[:|;]/) and  
+x[-1].match(/[)|D]/) and 
+(x.size==2 ? true : x[1].match(/[-|~]/) )}.size
+end
 
 p count_smileys([])# 0)
 p count_smileys([":D",":~)",";~D",":)"])# 4)
 p count_smileys([":)",":(",":D",":O",":;"])# 2)
 p count_smileys([";]", ":[", ";*", ":$", ";-D"])# 1)
 p count_smileys([";", ")", ";*", ":$", "8-D"])# 0)
+p count_smileys([";DD"])# 0)
