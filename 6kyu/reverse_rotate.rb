@@ -23,7 +23,7 @@
 # revrot("123456779", 0) --> "" 
 # revrot("563000655734469485", 4) --> "0365065073456944"
 
-
+# MY SOLUTION
 def revrot(str, sz)
   return "" if str.empty? || sz <= 0 || sz > str.size
   temp_str = str.clone
@@ -41,6 +41,49 @@ def revrot(str, sz)
   end.join
 end
 
+# BEST SOLUTIONS
+def revrot(str, sz)
+  return '' if sz <= 0
+  chunks = str.scan(/.{#{sz}}/)
+  chunks.map do |chunk|
+    digits = chunk.chars
+    sum = digits.map {|x| x.to_i ** 3 }.inject(:+)
+    sum.even? ? digits.reverse : digits.rotate
+  end.join
+end
+
+def revrot(str, sz)
+  return "" if sz <= 0
+  chunks = str.chars.each_slice(sz).select{ |a| a.size == sz}
+  chunks.map! do |arr|
+    if arr.map(&:to_i).reduce(:+).even?
+      arr.reverse
+    else
+      arr << arr.shift # roll left
+    end
+  end
+  return chunks.join ''
+end
+
+def revrot(str, sz)
+  str.scan(/.{#{sz}}/).map { |s| cubes_sum_even?(s.chars) }.join
+end
+
+def cubes_sum_even?(arr)
+  arr.reduce(0) { |s, i| s += i.to_i**3}.even? ? arr.join.reverse! : arr.rotate!(1).join
+end
+
+def revrot(str, sz)
+  return "" if str.empty?
+  return "" if sz <= 0 || sz > str.length
+
+  str.gsub(/.{1,#{sz}}/) { |chunk|
+    next if chunk.size < sz
+    digits = chunk.chars.map(&:to_i)
+    sum_of_cubes = digits.inject(0) { |sum, digit| sum + digit ** 3 }
+    digits.send(sum_of_cubes.even? ? :reverse : :rotate).join
+  }
+end
 
 # p revrot("1234", 0)# "")
 # p revrot("", 0)# "")
