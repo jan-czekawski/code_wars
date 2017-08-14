@@ -67,6 +67,40 @@ def sqInRect(lng, wdth)
   end
 end
 
+# BEST SOLUTIONS
+def sqInRect(l, w)
+    rects = []
+    while l>0 do
+      w,l = [w,l].minmax
+      rects << w
+      l -= w
+    end
+    rects.size > 1 ? rects : nil
+end
+
+def sqInRect(lng, wdth, nil_if_same = true)
+  return nil if lng == wdth && nil_if_same
+  
+  return [] if lng == 0 || wdth == 0
+  
+  min, max = [lng, wdth].minmax
+  
+  [min] + sqInRect(min, max - min, false)
+end
+
+def sqInRect(lng, wdth)
+    if lng == wdth then return nil end
+    if lng < wdth then wdth, lng = lng, wdth end
+    res = []
+    while lng != wdth do
+        res << wdth
+        lng = lng - wdth
+        if lng < wdth then wdth, lng = lng, wdth end
+    end
+    res << wdth
+    res
+end
+
 p sqInRect(5, 5)# nil)
 p sqInRect(5, 3)# [3, 2, 1, 1])
 p sqInRect(20, 14)# [14, 6, 6, 2, 2, 2])
