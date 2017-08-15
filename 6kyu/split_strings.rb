@@ -23,5 +23,17 @@ def solution(str)
   result.flatten
 end
 
+# BEST SOLUTIONS
+def solution str
+  (str + '_').scan /../
+end
+
+def solution(str)
+    str << "_" if str.length % 2 != 0
+    str.chars.each_slice(2).map(&:join)
+end
+
+
 p solution("abc")
 p solution("abcdef")
+p solution("abcd ef")
