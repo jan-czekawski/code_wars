@@ -20,8 +20,23 @@
 # "u" at the beginning, middle, or end of a string, but NOT part of a word
 # "you" but NOT as part of another word like youtube or bayou
 
+# MY SOLUTION
 def autocorrect(input)
   input.gsub(/(\byou+\b|\bu\b)/i, 'your sister')
+end
+
+# BEST SOLUTIONS
+def autocorrect(input)
+  input.gsub(/\b(you+|u)\b/i, 'your sister')
+end
+
+def autocorrect(input)
+  you_regexp = /\b(you+|u)\b/i
+  input.gsub(you_regexp, 'your sister')
+end
+
+def autocorrect(input)
+  input.gsub(/(^|(?<=\W))((you+)|u)($|(?=\W))/i, '\1your sister\4')
 end
 
 p autocorrect("You are beautifull. U are great. Youtube rocks. And youuuuu should")
