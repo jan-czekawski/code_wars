@@ -53,6 +53,58 @@ class Array
   end
 end
 
+class Array
+  def square
+    map {|x| x*x}
+  end
+
+  def cube
+    map {|x| x**3}
+  end
+  
+  def average
+    sum / size
+  end
+  
+  def sum
+    reduce(:+)
+  end
+  
+  def even
+    select(&:even?)
+  end
+  
+  def odd
+    select(&:odd?)
+  end
+end
+
+class Array
+  def square
+    map{|i| i**2}
+  end
+
+  def cube
+    map{|i| i**3}
+  end
+  
+  def sum
+    empty? ? 0 : inject(:+)
+  end
+  
+  def average
+    empty? ? Float::NAN : sum / length
+  end
+  
+  def even
+    select{|i| i.even?}
+  end
+  
+  def odd
+    select{|i| !i.even?}
+  end
+  
+end
 
 numbers = [1, 2, 3, 4, 5]
 
