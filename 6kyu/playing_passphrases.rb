@@ -29,10 +29,20 @@
 
 # https://en.wikipedia.org/wiki/Passphrase
 
+
+# a => 97
+# z => 122
+# A => 65
+# Z => 90
+
 def play_pass(str, n)
   str.chars.map.with_index do |ltr, idx|
     if ltr =~ /[a-zA-Z]/
-      ltr = (ltr.ord + n).chr
+      if ltr.ord + n > 90 || ltr.ord + n > 122
+        ltr = (ltr.ord - 26 + n).chr
+      else
+        ltr = (ltr.ord + n).chr
+      end
       ltr = ltr.downcase if idx.odd?
       ltr = ltr.upcase if idx.even?
       ltr
