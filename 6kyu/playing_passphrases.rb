@@ -35,6 +35,7 @@
 # A => 65
 # Z => 90
 
+# MY SOLUTION
 def play_pass(str, n)
   str.chars.map.with_index do |ltr, idx|
     if ltr =~ /[a-zA-Z]/
@@ -43,15 +44,57 @@ def play_pass(str, n)
       else
         ltr = (ltr.ord + n).chr
       end
-      ltr = ltr.downcase if idx.odd?
-      ltr = ltr.upcase if idx.even?
-      ltr
+      
+      if idx.odd?
+        ltr = ltr.downcase
+      else
+        ltr = ltr.upcase
+      end
+      
     elsif ltr =~ /\d/
       ltr = 9 - ltr.to_i
     else
       ltr
     end
   end.join.reverse
+end
+
+# BEST SOLUTIONS
+def play_pass(str, n)
+  str
+    .downcase
+    .tr('a-z', ('a'..'z').to_a.rotate(n).join)
+    .tr('0-9', '9876543210')
+    .gsub(/(..|.$)/, &:capitalize)
+    .reverse
+end
+
+def play_pass(string, n)
+str = []
+string.chars.each_with_index do |char,i| 
+  if (char =~ (/^[[:alpha:]]$/)) == 0
+    if (char =~ /[[:upper:]]/) == 0 
+      no = (char.ord-"A".ord+n)%26
+      char  = (no+"A".ord).chr
+    else
+      no = (char.ord-"a".ord+n)%26
+      char = (no +"a".ord).chr
+    end
+  elsif (char =~ /\d+/) == 0
+    char = ((char.ord-48-9).abs + 48).chr
+  end
+  i%2==0 ? str << char.upcase : str << char.downcase
+end
+str.join.reverse
+end
+
+def play_pass(str, n)
+  str.downcase
+  .tr('a-z',('a'..'z').to_a.rotate(n).join)
+  .tr('0-9',(0..9).map { |i| (9-i).to_s }.join)
+  .chars.map.with_index { |char,index| index.even? ? char.upcase : char.downcase }
+  .join
+  .reverse
 end
 
 p play_pass("I LOVE YOU!!!", 1)#, "!!!vPz fWpM J")
