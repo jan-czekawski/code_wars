@@ -19,10 +19,34 @@
 
 # I have also created other katas. Take a look if you enjoyed this kata!
 
+# MY SOLUTION
 def dont_give_me_five(small, big)
   (small..big).map(&:to_s)
               .grep_v(/5/)
               .size
+end
+
+# OTHER SOLUTIONS
+def dont_give_me_five(start_,end_)
+  (start_..end_)
+    .reject { |e| e.to_s.include?('5') }
+    .count
+end
+
+def dont_give_me_five(start,end_)
+    (start..end_).count { | i | not i.to_s.include? '5' }
+end
+
+def dont_give_me_five(start_,end_)
+  (start_..end_).count { |n| n.to_s !~ /5/ }
+end
+
+def dont_give_me_five(small, big)
+  (small..big).reject { |n| n.to_s =~ /5/ }.size
+end
+
+def dont_give_me_five(start_,end_)
+    (start_..end_).count{ |num| !num.to_s.chars.include?('5') }
 end
 
 p dont_give_me_five(1,9)#, 8)
