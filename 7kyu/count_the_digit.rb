@@ -23,6 +23,23 @@ def nb_dig(n, d)
         .count("#{d}")
 end
 
+def nb_dig(n, d)
+  (0..n).map { |k| k ** 2 }.join.count d.to_s
+end
+
+# BEST SOLUTIONS
+def nb_dig(n, d)
+  (0..n).map{|x| (x**2).to_s.count(d.to_s)}.reduce(:+)
+end
+
+def nb_dig(n, d)
+  (0..n).inject(0){|count, i| count + (i**2).to_s.count(d.to_s) }
+end
+
+def nb_dig(n, d)
+  (0..n).map{|x| (x*x).to_s.count d.to_s}.inject{|s, x| s + x}
+end
+
 p nb_dig(10, 1)#, 4)
 p nb_dig(5750, 0)#, 4700)
 p nb_dig(11011, 2)#, 9481)
