@@ -41,6 +41,42 @@ def find_missing_number(seq)
   end
 end
 
+# BEST SOLUTIONS
+def find_missing_number(sequence)
+  number_sequence = sequence.split.map(&:to_i).sort
+  
+  number_sequence.each.with_index(1) do |actual, expected|
+    return expected unless actual == expected
+  end
+  
+  0
+end
+
+def find_missing_number(sequence)
+  sequence.split.map(&:to_i).sort.each.with_index(1) do |n, i|
+    return i if n != i
+  end
+  0
+end
+
+def find_missing_number(sequence)
+  return 0 if sequence.empty?
+  arr = sequence.split.map(&:to_i).sort
+  return 1 if arr.first != 1
+  return 0 if arr.last-arr.first+1 == arr.length
+  ((1..100).to_a - arr).first
+end
+
+def find_missing_number(sequence)
+  return 0 if sequence.empty?
+  
+  arr = sequence.split(" ")
+  arr.each_with_index {|x,i| arr[i] = x.to_i }
+  arr.sort!
+  return 1 if arr[0] != 1
+  arr.each_with_index {|x,i| return i+1 unless x==(i+1) } 
+  return 0
+end
 p find_missing_number("1 2 3 5")#4,"It must work for missing middle terms")
 p find_missing_number("1 3")#2,"It must work for missing middle terms")
 p find_missing_number("")# 0,"It must return 0 for an empty sequence")
