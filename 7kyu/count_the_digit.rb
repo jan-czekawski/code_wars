@@ -15,3 +15,16 @@
 # so there are 11 digits `1` for the squares of numbers between 0 and 25.
 
 # Note that 121 has twice the digit 1.
+
+# MY SOLUTION
+def nb_dig(n, d)
+  (0..n).map { |i| (i**2).to_s }
+        .join
+        .count("#{d}")
+end
+
+p nb_dig(10, 1)#, 4)
+p nb_dig(5750, 0)#, 4700)
+p nb_dig(11011, 2)#, 9481)
+p nb_dig(12224, 8)#, 7733)
+p nb_dig(11549, 1)#, 11905)
