@@ -22,3 +22,28 @@
 
 # find_missing_number("2 1 4 3 a") # returns 1, because it's an invalid sequence.
 # in this case, it's invalid because contain a non numerical characte
+
+def find_missing_number(seq)
+  return 0 if seq.empty?
+  arr = seq.split.each do |el| 
+        unless el.to_i.to_s == el
+          return 1
+        end
+      end.map(&:to_i).sort
+  i = 1
+  loop do
+    if arr[i - 1] == i
+      i += 1
+    else
+      break i
+    end
+    break 0 if i > arr.size
+  end
+end
+
+p find_missing_number("1 2 3 5")#4,"It must work for missing middle terms")
+p find_missing_number("1 3")#2,"It must work for missing middle terms")
+p find_missing_number("")# 0,"It must return 0 for an empty sequence")
+p find_missing_number("2 3 4 5")#1,"It must return 1 for a sequence missing the first element")
+p find_missing_number("2 1 4 3 a")#1,"It must return 1 for an invalid sequence")
+p find_missing_number("2 1 4 3 5")#0,"It must return 1 for an invalid sequence")
