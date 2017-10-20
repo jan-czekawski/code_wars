@@ -14,5 +14,22 @@ def remove_url_anchor(url)
   return suburl
 end
 
-p remove_url_anchor('www.codewars.com?page=1')
-p remove_url_anchor('www.codewars.com#about')
+# BEST SOLUTIONS
+def remove_url_anchor(url)
+  url.split('#').first
+end
+
+def remove_url_anchor(url)
+  url.split('#')[0]
+end
+
+def remove_url_anchor(url)
+  url.split("#")[0]
+end
+
+def remove_url_anchor(url)
+  url.gsub(/#.*/, '')
+end
+
+p remove_url_anchor('www.codewars.com?page=1') # 'www.codewars.com'
+p remove_url_anchor('www.codewars.com#about') # 'www.codewars.com'

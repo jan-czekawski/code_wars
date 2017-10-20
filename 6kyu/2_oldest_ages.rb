@@ -28,3 +28,5 @@ end
 def two_oldest_ages(ages)
   ages.max(2).reverse
 end
+
+p two_oldest_ages([1, 3, 10, 0]) # [3, 10]
