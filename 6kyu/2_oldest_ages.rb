@@ -11,3 +11,20 @@ def two_oldest_ages(ages)
   ages.sort!
   return ages.last(2)
 end
+
+# BEST SOLUTIONS
+def two_oldest_ages(ages)
+  ages.sort.last(2)
+end
+
+def two_oldest_ages(ages)
+  ages.max(2).sort
+end
+
+def two_oldest_ages(ages)
+  ages.sort[-2..-1]
+end
+
+def two_oldest_ages(ages)
+  ages.max(2).reverse
+end
