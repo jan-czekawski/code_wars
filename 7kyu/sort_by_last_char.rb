@@ -11,6 +11,14 @@ def last(x)
   x.split.sort { |a, b| a[-1] <=> b[-1] }
 end
 
+# OTHER SOLUTIONS
+def last(x)
+  x.split(" ").sort_by { |i| i[-1]}
+end
+
+def last(ary)
+  x.split.sort_by { |w| w.chars.last }
+end
 
 p last('man i need a taxi up to ubud')# ['a', 'need', 'ubud', 'i', 'taxi', 'man', 'to', 'up'])
 p last('what time are we climbing up the volcano')# ['time', 'are', 'we', 'the', 'climbing', 'volcano', 'up', 'what']) 
