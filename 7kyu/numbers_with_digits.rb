@@ -26,12 +26,51 @@
 
 # I have created other katas. Have a look if you like coding and challenges.
 
+# MY SOLUTION
 def numbers_with_digit_inside(x, d)
   arr = []
   (1..x).each { |item| arr.push(item) if item.to_s =~ /#{d}/ }
   return [0, 0, 0] if arr.count == 0 
   [arr.count, arr.inject(&:+), arr.inject(&:*)]
 end
+
+# OTHER SOLUTIONS
+def numbers_with_digit_inside(x, d)
+  nums = ('1'..x.to_s).select { |num| num.include?(d.to_s) }.map(&:to_i)
+  [nums.size, nums.reduce(0, :+), nums.reduce(:*) || 0]
+end
+
+module ArrayMath
+  refine Array do
+    def sum
+      reduce(0,:+)
+    end
+
+    def product
+      empty? ? 0 : reduce(1,:*)
+    end
+  end
+end
+
+using ArrayMath
+
+def numbers_with_digit_inside(x, d)
+  contains_x = (1..x).select { |n| n.to_s[/#{d}/] }
+  [contains_x.count, contains_x.sum, contains_x.product]
+end
+
+def numbers_with_digit_inside(x, d)
+  (1..x).select{|i| /#{d}/ =~ i.to_s}.instance_eval{[size, reduce(0,:+), reduce(:*)||0]}
+end
+
+def numbers_with_digit_inside(x, d)
+  numbers = (1..x).select do |i|
+    i.to_s.include?(d.to_s)
+  end
+
+  numbers.size.zero? ? [0, 0, 0] : [numbers.size, numbers.reduce(:+), numbers.reduce(:*)]
+end
+
 
 p numbers_with_digit_inside(5, 6)# [0, 0, 0])
 p numbers_with_digit_inside(7, 6)# [1, 6, 6])
