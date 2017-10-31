@@ -29,8 +29,8 @@
 def numbers_with_digit_inside(x, d)
   arr = []
   (1..x).each { |item| arr.push(item) if item.to_s =~ /#{d}/ }
-  arr2 = [arr.count, arr.inject(&:+), arr.inject(&:*)]
-  arr2.each { |el| el.nil? ? 0 : el }
+  return [0, 0, 0] if arr.count == 0 
+  [arr.count, arr.inject(&:+), arr.inject(&:*)]
 end
 
 p numbers_with_digit_inside(5, 6)# [0, 0, 0])
