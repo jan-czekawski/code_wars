@@ -29,6 +29,7 @@
 #  from other programming languages. He couldn't stop ranting about "prototypes", or 
 #  something like that. Maybe that could help you...
 
+# MY SOLUTION
 class Dog
 	def initialize(name, breed, sex, age)
 		@name = name
@@ -41,6 +42,45 @@ class Dog
 		"Woof!"
 	end
 end
+
+# OTHER SOLUTIONS
+class Dog
+  def bark()
+    "Woof!"
+  end
+end
+
+Dog.class_eval do
+  def bark
+   'Woof!'
+  end
+end
+
+class Dog
+  attr_accessor
+  def initialize(name, breed, gender, age)
+    @name = name
+    @breed = breed
+    @gender = gender
+    @age = age
+  end
+
+  def bark()
+    return "Woof!"
+  end
+
+end
+
+module For_lazy_guy
+  def bark
+   "Woof!"
+  end
+end
+
+class Dog
+  include For_lazy_guy
+end
+
 
 describe "Basic tests" do
   it "Can you make newly created dogs bark?" do
