@@ -19,10 +19,33 @@
 # 10 is the number that fits between 5 and 14 and the index of 10 in the input
 # array is 1.
 
+# MY SOLUTION
 def gimme(input_array)
   second = input_array.sort
   input_array.find_index(second[1])
 end
+
+# OTHER SOLUTIONS
+def gimme(input)
+  input.index(input.sort[1])
+end
+
+def gimme(input)
+  median_value = input.sort.at(input.length/ 2)
+  input.index(median_value)
+end
+
+def gimme(input_array)
+  input_array.each do |item|
+    return input_array.index(item) if item > input_array.min && item < input_array.max
+  end
+end
+
+def gimme(a)
+  a.index(a.sort[((a.length-1)/2)])
+end
+
+
 
 p gimme([2, 3, 1])#, 0, 'Finds the index of middle element')
 p gimme([5, 10, 14])#, 1, 'Finds the index of middle element')
