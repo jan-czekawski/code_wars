@@ -18,3 +18,15 @@
 
 # 10 is the number that fits between 5 and 14 and the index of 10 in the input
 # array is 1.
+
+def gimme(input_array)
+  second = input_array.sort
+  input_array.find_index(second[1])
+end
+
+p gimme([2, 3, 1])#, 0, 'Finds the index of middle element')
+p gimme([5, 10, 14])#, 1, 'Finds the index of middle element')
+p gimme([1, 3, 4])#, 1, 'Finds the index of middle element')
+p gimme([15, 10, 14])#, 2, 'Finds the index of middle element')
+p gimme([-0.410, -23, 4])#, 0, 'Finds the index of middle element(Negative numbers)')
+p gimme([-15, -10, 14])#, 1, 'Finds the index of middle element (Negative numbers)')śś
