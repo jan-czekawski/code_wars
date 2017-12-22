@@ -16,6 +16,11 @@
 
 # Return the nth triangular number
 def triangular( n )
+  return 0 if n <= 0
+  sum = 0
+  
+  (1..n).each { |num| sum += num }
+  sum
 end
 
 p triangular(2)#, 3 )
