@@ -17,6 +17,7 @@
 
 # max_rot(56789) should return 68957
 
+# MY SOLUTION
 def max_rot(n)
   count = n.to_s.chars.count
   i = 0
@@ -32,6 +33,54 @@ def max_rot(n)
   
   arr.max
 end
+
+# BEST SOLUTIONS
+def max_rot(n)
+  na = n.to_s.chars
+  na.length.times.each_with_object([n]) do |i, arr|
+    arr << (na << na.delete_at(i)).join.to_i
+  end.max
+end
+
+def max_rot(n)
+  a = n.to_s.chars
+  rotates = (0...a.length).map { |i| 
+    a = a[0,i] + a[i, a.length].rotate
+    a.join.to_i
+  } << n
+  rotates.max
+end
+
+def max_rot(num)
+  numbers = []
+  array = num.to_s.split('').map! {|x|x.to_i}
+  i = 0
+  while i < num.to_s.length  
+    array.insert(-1, array.delete_at(i))
+    numbers << array.join('').to_i
+    i+=1
+  end
+  numbers << num 
+  numbers.uniq!.max  
+end 
+
+def max_rot(n)
+    s, res, mx = n.to_s, "", n
+    if (s.length == 1) then return n end
+    while true do
+        # left rotate s
+        s = (s * 2)[1, s.length]
+        # keep first char
+        res += s[0]
+        # new s
+        s = s[1, s.length]
+        nb = (res + s).to_i
+        if (nb > mx) then mx = nb end
+        if (s.length == 1) then break end
+    end
+    mx
+end
+
 
 p max_rot(56789)# should return 68957
 p max_rot(38458215)# 85821534)
