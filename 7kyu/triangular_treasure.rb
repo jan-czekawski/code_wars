@@ -15,6 +15,8 @@
 #   triangular(-10)==0
 
 # Return the nth triangular number
+
+# MY SOLUTION
 def triangular( n )
   return 0 if n <= 0
   sum = 0
@@ -23,5 +25,18 @@ def triangular( n )
   sum
 end
 
+# BEST SOLUTIONS
+def triangular( n )
+  n < 0 ? 0 : (n*n+n)/2
+end
+
+def triangular(n)
+  (1..n).reduce(0, &:+)
+  # (1..n).reduce(0, :+)
+end
+
+def triangular( n )
+  (0..n).reduce(:+) || 0
+end
 p triangular(2)#, 3 )
 p triangular(4)#, 10 )
