@@ -13,3 +13,10 @@
 #   triangular(2)==3,
 #   triangular(3)==6,
 #   triangular(-10)==0
+
+# Return the nth triangular number
+def triangular( n )
+end
+
+p triangular(2)#, 3 )
+p triangular(4)#, 10 )
