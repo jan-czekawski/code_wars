@@ -18,9 +18,22 @@
 # max_rot(56789) should return 68957
 
 def max_rot(n)
-    # your code
+  count = n.to_s.chars.count
+  i = 0
+  arr = []
+  arr.push(n)
+  
+  until i == count - 1
+    n = n.to_s.chars
+    n = (n[0...i] + n[i..-1].rotate).join.to_i
+    arr.push(n)
+    i += 1
+  end
+  
+  arr.max
 end
 
+p max_rot(56789)# should return 68957
 p max_rot(38458215)# 85821534)
 p max_rot(195881031)# 988103115)
 p max_rot(896219342)# 962193428)
