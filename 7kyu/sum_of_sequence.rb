@@ -16,7 +16,17 @@
 # 2) Sum of a Sequence [Hard-Core Version]
 
 def sequence_sum(begin_number, end_number, step)
-  #your code here
+  return 0 if end_number < begin_number
+  
+  x = begin_number
+  sum = 0
+  
+  while x <= end_number
+    sum += x
+    x += step
+  end
+  
+  sum
 end
 
 
