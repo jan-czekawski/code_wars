@@ -15,6 +15,7 @@
 # 1) Sum of a sequence (this kata)
 # 2) Sum of a Sequence [Hard-Core Version]
 
+# MY SOLUTION
 def sequence_sum(begin_number, end_number, step)
   return 0 if end_number < begin_number
   
@@ -27,6 +28,16 @@ def sequence_sum(begin_number, end_number, step)
   end
   
   sum
+end
+
+# BEST SOLUTIONS
+def sequence_sum(begin_number, end_number, step)
+  (begin_number..end_number).step(step).reduce(0, :+)
+end
+
+def sequence_sum(s, f, step)
+  return 0 if s > f
+  (s..f).step(step).each.inject(:+)
 end
 
 
