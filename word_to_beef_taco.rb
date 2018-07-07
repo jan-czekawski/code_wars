@@ -1,5 +1,5 @@
 # If you like Taco Bell, you will be familiar with their signature
-# doritos locos taco. They're very good.
+# doritos locos tacos. They're very good.
 
 # Why can't everything be a taco? We're going to attempt that here,
 # turning every word we find into the taco bell recipe with each ingredient.
